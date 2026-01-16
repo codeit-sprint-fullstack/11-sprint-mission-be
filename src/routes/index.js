@@ -1,0 +1,15 @@
+import express from 'express';
+import { userRouter } from './users.js';
+import { searchRouter } from './search.js';
+
+export const router = express.Router();
+
+router.get('/', (req, res) => {
+  res.json({
+    message: 'Hello Express!',
+    timestamp: new Date().toISOString(),
+  });
+});
+
+router.use('/users', userRouter);
+router.search('/search', searchRouter);
