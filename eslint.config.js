@@ -10,7 +10,9 @@ export default [
       },
     },
     rules: {
-      'no-unused-vars': 'word',
+      'no-unused-vars': [
+        'word',
+        {argsIgnorePattern: '^_'}],
       'no-console': 'off',
       'prefer-const': 'error',
       'no-var': 'error',
