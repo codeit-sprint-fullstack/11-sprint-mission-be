@@ -12,4 +12,4 @@ router.get('/', (req, res) => {
 });
 
 router.use('/users', userRouter);
-router.search('/search', searchRouter);
+router.use('/search', searchRouter);
