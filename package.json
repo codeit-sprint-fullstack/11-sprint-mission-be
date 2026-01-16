@@ -1,0 +1,41 @@
+{
+  "name": "11-sprint-mission-be",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "",
+  "main": "eslint.config.js",
+  "scripts": {
+    "dev": "nodemon --watch ./src ./src/server.js",
+    "format": "prettier --write src/**/*.js",
+    "format:check": "prettier --check src/**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevWoojin97/11-sprint-mission-be.git"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": {
+    "name": "DevWoojin97",
+    "email": "dnekdnwls@gamil.com"
+  },
+  "engines": {
+    "node": "^24.11.0",
+    "npm": "^11.6.2"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DevWoojin97/11-sprint-mission-be/issues"
+  },
+  "homepage": "https://github.com/DevWoojin97/11-sprint-mission-be#readme",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
+    "nodemon": "^3.1.11",
+    "prettier": "^3.8.0"
+  }
+}
