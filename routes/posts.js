@@ -5,11 +5,11 @@ import { BadRequestException } from '../errors/badRequestException.js';
 export const postRouter = express.Router();
 
 const items = [
-  { id: 1, name: '핸드폰', price: 500000 },
-  { id: 2, name: '카메라', price: 1000000 },
-  { id: 3, name: '노트북', price: 3000000 },
-  { id: 4, name: '에어컨', price: 1100000 },
-  { id: 5, name: '세탁기', price: 1000000 },
+  { id: 1, name: '핸드폰', price: 500000, createdAt: '2024-06-051T12:00:00z' },
+  { id: 2, name: '카메라', price: 1000000, createdAt: '2024-06-051T12:00:00z'},
+  { id: 3, name: '노트북', price: 3000000, createdAt: '2024-06-051T12:00:00z'},
+  { id: 4, name: '에어컨', price: 1100000, createdAt: '2024-06-051T12:00:00z'},
+  { id: 5, name: '세탁기', price: 1000000, createdAt: '2024-06-051T12:00:00z'},
 ];
 let nextId = 6;
 
