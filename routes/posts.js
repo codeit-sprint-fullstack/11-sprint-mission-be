@@ -1,5 +1,6 @@
 import express from 'express';
-import { NotFoundException } from '../errors/notFoundException';
+import { NotFoundException } from '../errors/notFoundException.js';
+import { BadRequestException } from '../errors/badRequestException.js';
 
 export const postRouter = express.Router();
 
@@ -10,21 +11,8 @@ const items = [
   { id: 4, name: '에어컨', price: 1100000 },
   { id: 5, name: '세탁기', price: 1000000 },
 ];
-let nextId = 5;
+let nextId = 6;
 
-//상품 상세 조회
-postRouter.get('/:id', (req, res) => {
-  try {
-    const id = parseInt(req.params.id);
-    const item = items.find((i) => i.id === id);
-
-    if (!item) {
-      throw new NotFoundException('상품을 찾을 수 없습니다.');
-    }
-  } catch (error) {
-    next(error);
-  }
-});
 
 //상품 목록 조회
 postRouter.get('/', (req, res, next) => {
@@ -33,6 +21,26 @@ postRouter.get('/', (req, res, next) => {
       success: true,
       data: items,
     });
+  } catch (error) {
+    next(error);
+  }
+});
+
+//상품 상세 조회
+postRouter.get('/:id', (req, res, next) => {
+  try {
+    const id = parseInt(req.params.id);
+    const item = items.find((i) => i.id === id);
+
+    if (!item) {
+      throw new NotFoundException('상품을 찾을 수 없습니다.');
+    }
+
+    res.status(200).json({
+      success: true,
+      data:item,
+      message: '짜잔'
+    })
   } catch (error) {
     next(error);
   }

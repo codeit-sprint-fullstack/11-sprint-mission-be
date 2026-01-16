@@ -1,6 +1,6 @@
 //에러 미들에어 
 
-import { HttpException } from '../errors/httpException';
+import { HttpException } from '../errors/httpException.js';
 
 export const errorHandler = (error, req, res, _next) => {
   console.error('error', error);
