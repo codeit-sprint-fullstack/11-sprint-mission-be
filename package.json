@@ -26,7 +26,8 @@
   },
   "homepage": "https://github.com/zoeyoon90/11-sprint-mission-be#readme",
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "zod": "^4.3.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
