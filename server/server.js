@@ -6,7 +6,7 @@ const startServer = async () => {
   await connectDB();
 
   const server = app.listen(config.PORT, () => {
-    console.log(`서버거ㅏ ${config.PORT}번 포트에서 시작되었습니다!`);
+    console.log(`서버가 ${config.PORT}번 포트에서 시작되었습니다!`);
   });
 
   const shutdown = async (signal) => {

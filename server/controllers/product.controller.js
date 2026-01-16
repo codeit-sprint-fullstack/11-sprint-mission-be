@@ -1,6 +1,6 @@
 // 요청/응답 처리
 
-import { ProductService } from '../services/product.service';
+import { ProductService } from '../services/product.service.js';
 
 const productService = new ProductService();
 

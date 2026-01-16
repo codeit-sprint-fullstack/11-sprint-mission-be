@@ -1,6 +1,6 @@
 // 유효성 검사
 
-import { BadRequestException } from '../errors/httpException';
+import { BadRequestException } from '../errors/httpException.js';
 
 export const validateProduct = (req, res, next) => {
   const { name, description, price, tags } = req.body;

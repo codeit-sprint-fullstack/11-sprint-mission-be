@@ -1,8 +1,15 @@
 // 환경변수 검사
 import dotenv from 'dotenv';
 import { z } from 'zod';
+import Path from 'path';
 
-dotenv.config();
+dotenv.config({
+  path: Path.resolve(
+    process.cwd(),
+    'env',
+    `.env.${process.env.NODE_ENV || 'development'}`
+  ),
+});
 
 const envSchema = z.object({
   NODE_ENV: z
