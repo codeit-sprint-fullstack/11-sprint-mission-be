@@ -11,7 +11,11 @@
   },
   "imports": {
     "#config": "./src/config/config.js",
-    "#db/*": "./src/db/*"
+    "#db/*": "./src/db/*",
+    "#constants": "./src/constants/index.js",
+    "#utils": "./src/utils/index.js",
+    "#middlewares": "./src/middlewares/index.js",
+    "#exceptions": "./src/exceptions/index.js"
   },
   "repository": {
     "type": "git",
