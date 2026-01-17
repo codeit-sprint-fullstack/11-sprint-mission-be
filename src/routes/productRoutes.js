@@ -58,7 +58,7 @@ productRouter.get(
     const skip = (Number(page) - 1) * limit;
 
     const products = await Product.find(filter)
-      .select('name price createdAt')
+      .select('name price favoriteCount createdAt')
       .sort(sortBy)
       .skip(skip)
       .limit(limit);
@@ -80,7 +80,7 @@ productRouter.get(
   '/:id',
   asyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id).select(
-      'name description price tags createdAt',
+      'name description price tags favoriteCount createdAt',
     );
 
     if (!product) throw new NotFoundError('상품을 찾을 수 없습니다.');
