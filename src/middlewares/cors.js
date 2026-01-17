@@ -5,7 +5,7 @@ const origin = req.headers.origin;
   
   
 	const whiteList = [
-    '', // Render.com 배포 주소 (예정)
+    'https://panda-market-4jmv.onrender.com', // Render.com 배포 주소
     'http://localhost:5173', // Vite 기본 포트
   ];
 
