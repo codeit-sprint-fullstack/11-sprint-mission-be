@@ -1,6 +1,6 @@
-import { isDevelopment } from '../config/config';
-import { HTTP_STATUS } from '../constants';
-import { HttpException } from '../exceptions/httpException';
+import { isDevelopment } from '#config';
+import { HTTP_STATUS } from '#constants';
+import { HttpException } from '#exceptions';
 
 export const errorHandler = (error, req, res, _next) => {
   console.error('error', error);

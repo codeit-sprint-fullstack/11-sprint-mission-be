@@ -1,5 +1,5 @@
 import express from 'express';
-import { productsRouter } from './products.js';
+import { productsRouter } from './products.routes.js';
 import { HTTP_STATUS } from '../constants/http-status.js';
 
 export const router = express.Router();

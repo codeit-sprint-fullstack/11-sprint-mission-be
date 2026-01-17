@@ -1,10 +1,12 @@
 import express from 'express';
 import { router } from './routes/index.js';
 import { config } from './config/config.js';
-import { errorHandler } from './middlewares/errorHandler.js';
-import { cors } from './middlewares/cors.js';
+import { cors } from './middlewares/cors.middleware.js';
+import { errorHandler } from './middlewares/errorHandler.middleware.js';
+import { connectDB, disconnectDB } from './db/index.js';
 
 const app = express();
+connectDB();
 
 // JSON 파싱 미들웨어
 app.use(express.json());
@@ -19,6 +21,18 @@ app.use('/', router);
 app.use(errorHandler);
 
 // 서버 시작
-app.listen(config.PORT, () => {
+const server = app.listen(config.PORT, () => {
   console.log(`🚀 Server running on http://localhost:${config.PORT}`);
 });
+
+// Graceful Shutdown
+const shutdown = (signal) => {
+  console.log(`\n${signal} received. Shutting down gracefully...`);
+  server.close(() => {
+    console.log('HTTP server closed.');
+    disconnectDB();
+  });
+};
+
+process.on('SIGINT', () => shutdown('SIGINT'));
+process.on('SIGTERM', () => shutdown('SIGTERM'));

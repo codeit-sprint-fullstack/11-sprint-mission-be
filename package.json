@@ -7,6 +7,14 @@
   "engines": {
     "node": ">=22.0.0"
   },
+  "imports": {
+    "#config": "./src/config/config.js",
+    "#db/*": "./src/db/*",
+    "#constants": "./src/constants/index.js",
+    "#middlewares": "./src/middlewares/index.js",
+    "#exceptions": "./src/exceptions/index.js",
+    "#models": "./src/models/index.js"
+  },
   "scripts": {
     "dev": "nodemon --env-file=./env/.env.development src/server.js",
     "prod": "node --env-file=./env/.env.production src/server.js",
@@ -18,6 +26,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^5.2.1",
+    "mongoose": "^9.1.4",
     "zod": "^4.3.5"
   },
   "devDependencies": {

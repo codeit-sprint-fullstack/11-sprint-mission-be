@@ -6,6 +6,7 @@ const envSchema = z.object({
     .enum(['development', 'production', 'test'])
     .default('development'),
   PORT: z.coerce.number().min(1000).max(65535).default(5001),
+  MONGO_URI: z.string().startsWith('mongodb+srv://'),
 });
 
 const parseEnvironment = () => {
@@ -13,6 +14,7 @@ const parseEnvironment = () => {
     return envSchema.parse({
       NODE_ENV: process.env.NODE_ENV,
       PORT: process.env.PORT,
+      MONGO_URI: process.env.MONGO_URI,
     });
   } catch (error) {
     if (error instanceof z.ZodError) {
@@ -25,7 +27,7 @@ const parseEnvironment = () => {
 
 export const config = parseEnvironment();
 
-// 환경별 헬퍼 함수들
+// 환경별 헬퍼 상수
 export const isDevelopment = config.NODE_ENV === 'development'; // boolean
 export const isProduction = config.NODE_ENV === 'production'; // boolean
 export const isTest = config.NODE_ENV === 'test'; // boolean

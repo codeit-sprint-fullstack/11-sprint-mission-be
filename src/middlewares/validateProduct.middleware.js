@@ -1,4 +1,4 @@
-import { BadRequestException } from '../exceptions/BadRequestException';
+import { BadRequestException } from '#exceptions';
 
 export const validateProduct = (req, res, next) => {
   const { name, price } = req.body;
