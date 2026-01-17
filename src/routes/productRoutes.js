@@ -49,7 +49,8 @@ productRouter.get(
 
     // 정렬 조건
     const sortOption = {
-      recent: { createdAt: -1 }, // 최신순,, 나중에 추가될 수도..?
+      recent: { createdAt: -1 }, // 최신순
+      favorite: { favoriteCount: -1 } // 좋아요순
     };
     const sortBy = sortOption[sort] || sortOption.recent; // 기본 최신순
 
