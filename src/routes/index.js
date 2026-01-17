@@ -1,12 +1,13 @@
 import express from 'express';
 import { productsRouter } from './products.js';
+import { HTTP_STATUS } from '../constants/http-status.js';
 
 export const router = express.Router();
 
 // 기본 라우트
 router.get('/', (req, res) => {
-  res.json({
-    message: 'Hello Express!',
+  res.status(HTTP_STATUS.OK).json({
+    message: 'OK',
     timestamp: new Date().toISOString(),
   });
 });
