@@ -1,0 +1,4 @@
+node_modules
+server/env/
+generated/
+.DS_Store
