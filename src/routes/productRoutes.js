@@ -2,6 +2,7 @@ import express from 'express';
 import { Product } from '../models/Product.js';
 import { NotFoundError } from '../errors/errors.js';
 import { asyncHandler } from '../utils/asyncHandler.js';
+import {validateProduct} from '../middlewares/validateProduct.js';
 
 export const productRouter = express.Router();
 
@@ -10,6 +11,7 @@ export const productRouter = express.Router();
  */
 productRouter.post(
   '/',
+  validateProduct,
   asyncHandler(async (req, res) => {
     const { name, description, price, tags } = req.body;
     const newProduct = await Product.create({ name, description, price, tags });
@@ -92,6 +94,7 @@ productRouter.get(
  */
 productRouter.patch(
   '/:id',
+  validateProduct,
   asyncHandler(async (req, res) => {
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
