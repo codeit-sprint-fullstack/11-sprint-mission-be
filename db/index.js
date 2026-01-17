@@ -1,0 +1,18 @@
+//데이터베이스 연걸 
+
+import mongoose from 'mongoose';
+import { config } from '../src/config/config.js';
+
+export const connectDB = async () => {
+  try {
+    await mongoose.connect(config.MONGO_URI);
+    console.log('✅ mongoDB connected successfully.');
+  } catch (error) {
+    console.error('❌ MongoDB connection error:', error);
+    process.exit(1);
+  }
+};
+
+export const disconnectDB = async () => {
+  await mongoose.connection.close();
+};

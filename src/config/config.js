@@ -1,11 +1,12 @@
 //환경 변수 검증 설정
-import { z } from 'zod';
+import { flattenError, z } from 'zod';
 
-const envSchema = z.Object({
+const envSchema = z.object({
   NODE_ENV: z
     .enum(['development', 'production', 'test'])
     .default('development'),
   PORT: z.coerce.number().min(1000).max(65535).default(5005),
+  MONGO_URI: z.string().startsWith('mongodb+srv://'),
 });
 
 const parseEnviroment = () => {
@@ -13,11 +14,11 @@ const parseEnviroment = () => {
     return envSchema.parse({
       NODE_ENV: process.env.NODE_ENV,
       PORT: process.env.PORT,
+      MONGO_URI: process.env.MONGO_URI,
     });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const flatten = flattenError(error);
-      console.log('환경 변수 검증 실패:', flatten);
+      console.log('환경 변수 검증 실패:', error);
     }
     process.exit(1);
   }

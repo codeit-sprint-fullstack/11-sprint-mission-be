@@ -1,22 +1,15 @@
 import express from 'express';
 import { NotFoundException } from '../errors/notFoundException.js';
 import { BadRequestException } from '../errors/badRequestException.js';
+import { Product } from '../src/modules/Product.model.js';
 
-export const postRouter = express.Router();
-
-const items = [
-  { id: 1, name: '핸드폰', price: 500000, createdAt: '2024-06-051T12:00:00z' },
-  { id: 2, name: '카메라', price: 1000000, createdAt: '2024-06-051T12:00:00z'},
-  { id: 3, name: '노트북', price: 3000000, createdAt: '2024-06-051T12:00:00z'},
-  { id: 4, name: '에어컨', price: 1100000, createdAt: '2024-06-051T12:00:00z'},
-  { id: 5, name: '세탁기', price: 1000000, createdAt: '2024-06-051T12:00:00z'},
-];
-let nextId = 6;
-
+export const itemRouter = express.Router();
 
 //상품 목록 조회
-postRouter.get('/', (req, res, next) => {
+itemRouter.get('/', async (req, res, next) => {
   try {
+    const items = await Product.find();
+
     res.json({
       success: true,
       data: items,
@@ -27,10 +20,10 @@ postRouter.get('/', (req, res, next) => {
 });
 
 //상품 상세 조회
-postRouter.get('/:id', (req, res, next) => {
+itemRouter.get('/:id', async (req, res, next) => {
   try {
-    const id = parseInt(req.params.id);
-    const item = items.find((i) => i.id === id);
+    const id = await Product.findById(req.params.id);
+    const item = Product.find((i) => i.id === id);
 
     if (!item) {
       throw new NotFoundException('상품을 찾을 수 없습니다.');
@@ -38,16 +31,16 @@ postRouter.get('/:id', (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      data:item,
-      message: '짜잔'
-    })
+      data: item,
+      message: '짜잔',
+    });
   } catch (error) {
     next(error);
   }
 });
 
 //상품등록
-postRouter.post('/', (req, res, next) => {
+itemRouter.post('/', (req, res, next) => {
   try {
     const { name, description, price, tags } = req.body;
 
@@ -76,12 +69,12 @@ postRouter.post('/', (req, res, next) => {
 });
 
 //상품 수정
-postRouter.patch('/:id', (req, res, next) => {
+itemRouter.patch('/:id', (req, res, next) => {
   try {
     const id = parseInt(req.params.id);
     const { name, description, price, tags } = req.body;
 
-    const itemIndex = items.findIndex((i) => i.id === id);
+    const itemIndex = Product.findIndex((i) => i.id === id);
 
     if (itemIndex === -1) {
       throw new NotFoundException('상품을 찾을 수 없습니다.');
@@ -106,10 +99,10 @@ postRouter.patch('/:id', (req, res, next) => {
 });
 
 //상품삭제
-postRouter.delete('/:id', (req, res, next) => {
+itemRouter.delete('/:id', (req, res, next) => {
   try {
     const id = parseInt(req.params.id);
-    const itemIndex = items.findIndex((i) => i.id === id);
+    const itemIndex = Product.findIndex((i) => i.id === id);
 
     if (itemIndex === -1) {
       throw new NotFoundException('상품을 찾을 수 없습니다.');

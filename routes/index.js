@@ -1,5 +1,5 @@
 import express from 'express';
-import { postRouter } from './posts.js';
+import { itemRouter } from './items.js';
 
 export const router = express.Router();
 
@@ -10,4 +10,4 @@ router.get('/', (req, res) => {
   })
 })
 
-router.use('/posts', postRouter);
+router.use('/items', itemRouter);
