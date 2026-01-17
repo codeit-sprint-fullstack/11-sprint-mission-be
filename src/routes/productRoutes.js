@@ -1,32 +1,34 @@
 import express from 'express';
 import { Product } from '../models/Product.js';
 import { NotFoundError } from '../errors/errors.js';
+import { asyncHandler } from '../utils/asyncHandler.js';
 
 export const productRouter = express.Router();
 
 /**
  * 새로운 상품 등록 -> [POST] /
  */
-productRouter.post('/', async (req, res, next) => {
-  try {
+productRouter.post(
+  '/',
+  asyncHandler(async (req, res) => {
     const { name, description, price, tags } = req.body;
     const newProduct = await Product.create({ name, description, price, tags });
+
     res.status(201).json({
       success: true,
       data: newProduct,
       message: '상품이 등록되었습니다.',
     });
-  } catch (error) {
-    next(error);
-  }
-});
+  }),
+);
 
 /**
  * 모든 상품 조회 -> [GET] /
- * offset 방식 페이지네이션, 최신순 정렬, 검색 기능
+ * 페이지네이션, 최신순 정렬, 검색 기능
  */
-productRouter.get('/', async (req, res, next) => {
-  try {
+productRouter.get(
+  '/',
+  asyncHandler(async (req, res) => {
     const {
       page = 1,
       pageSize = 10,
@@ -66,65 +68,57 @@ productRouter.get('/', async (req, res, next) => {
       list: products,
       totalCount: total,
     });
-  } catch (error) {
-    next(error);
-  }
-});
+  }),
+);
 
 /**
  * 상품 상세 조회 -> [GET] /:id
  */
-productRouter.get('/:id', async (req, res, next) => {
-  try {
+productRouter.get(
+  '/:id',
+  asyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id).select(
       'name description price tags createdAt',
     );
 
-    if (!product)
-      throw new NotFoundError('상품을 찾을 수 없습니다.');
+    if (!product) throw new NotFoundError('상품을 찾을 수 없습니다.');
 
     res.json({ success: true, data: product });
-  } catch (error) {
-    next(error);
-  }
-});
+  }),
+);
 
 /**
  * 상품 정보 수정 -> [PATCH] /:id
  */
-productRouter.patch('/:id', async (req, res, next) => {
-  try {
+productRouter.patch(
+  '/:id',
+  asyncHandler(async (req, res) => {
     const updatedProduct = await Product.findByIdAndUpdate(
       req.params.id,
       req.body,
       { new: true },
     );
 
-    if (!updatedProduct)
-      throw new NotFoundError('상품을 찾을 수 없습니다.');
+    if (!updatedProduct) throw new NotFoundError('상품을 찾을 수 없습니다.');
 
     res.json({
       success: true,
       data: updatedProduct,
       message: '상품 정보가 수정되었습니다.',
     });
-  } catch (error) {
-    next(error);
-  }
-});
+  }),
+);
 
 /**
  * 상품 삭제 -> [DELETE] /:id
  */
-productRouter.delete('/:id', async (req, res, next) => {
-  try {
+productRouter.delete(
+  '/:id',
+  asyncHandler(async (req, res) => {
     const deleteProduct = await Product.findByIdAndDelete(req.params.id);
 
-    if (!deleteProduct)
-      throw new NotFoundError('상품을 찾을 수 없습니다.');
+    if (!deleteProduct) throw new NotFoundError('상품을 찾을 수 없습니다.');
 
     res.json({ success: true, message: '상품이 삭제되었습니다.' });
-  } catch (error) {
-    next(error);
-  }
-});
+  }),
+);
