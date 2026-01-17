@@ -1,5 +1,6 @@
 import express from 'express';
-import { Product } from '../models/Product';
+import { Product } from '../models/Product.js';
+import { NotFoundError } from '../errors/errors.js';
 
 export const productRouter = express.Router();
 
@@ -80,7 +81,7 @@ productRouter.get('/:id', async (req, res, next) => {
     );
 
     if (!product)
-      return res.status(404).json({ message: '상품을 찾을 수 없습니다.' });
+      throw new NotFoundError('상품을 찾을 수 없습니다.');
 
     res.json({ success: true, data: product });
   } catch (error) {
@@ -100,7 +101,7 @@ productRouter.patch('/:id', async (req, res, next) => {
     );
 
     if (!updatedProduct)
-      return res.status(404).json({ message: '상품을 찾을 수 없습니다.' });
+      throw new NotFoundError('상품을 찾을 수 없습니다.');
 
     res.json({
       success: true,
@@ -120,7 +121,7 @@ productRouter.delete('/:id', async (req, res, next) => {
     const deleteProduct = await Product.findByIdAndDelete(req.params.id);
 
     if (!deleteProduct)
-      return res.status(404).json({ message: '상품을 찾을 수 없습니다.' });
+      throw new NotFoundError('상품을 찾을 수 없습니다.');
 
     res.json({ success: true, message: '상품이 삭제되었습니다.' });
   } catch (error) {
