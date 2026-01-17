@@ -15,8 +15,8 @@
     "email": "wowshally@gmail.com"
   },
   "engines": {
-    "node": "^24.12.0",
-    "npm": "^11.6.2"
+    "node": ">=20.0.0",
+    "npm": "^>=10.0.0"
   },
   "license": "MIT",
   "description": "",
