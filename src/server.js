@@ -1,11 +1,11 @@
 import express from 'express';
-import { router } from '../routes/index.js';
-import { logger } from '../middlewares/logger.js';
-import { requestTimer } from '../middlewares/requestTimer.js';
-import { errorHandler } from '../middlewares/errorHandler.js';
-import { connectDB, disconnectDB } from '../db/index.js';
+import { router } from '../src/routes/index.js'
+import { logger } from './middlewares/logger.js';
+import { requestTimer } from './middlewares/requestTimer.js';
+import { errorHandler } from './middlewares/errorHandler.js';
+import { connectDB, disconnectDB } from './db/index.js';
 import { config, isDevelopment } from './config/config.js';
-import { cors } from '../middlewares/cors.js';
+import { cors } from './middlewares/cors.js';
 
 const app = express();
 await connectDB();

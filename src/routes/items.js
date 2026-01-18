@@ -1,7 +1,7 @@
 import express from 'express';
 import { NotFoundException } from '../errors/notFoundException.js';
 import { BadRequestException } from '../errors/badRequestException.js';
-import { Product } from '../src/modules/Product.model.js';
+import { Product } from '../models/product.js';
 
 export const itemRouter = express.Router();
 

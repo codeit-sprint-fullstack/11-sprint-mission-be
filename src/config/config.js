@@ -1,5 +1,5 @@
 //환경 변수 검증 설정
-import { flattenError, z } from 'zod';
+import { z } from 'zod';
 
 const envSchema = z.object({
   NODE_ENV: z

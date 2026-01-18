@@ -1,7 +1,7 @@
 //데이터베이스 연걸 
 
 import mongoose from 'mongoose';
-import { config } from '../src/config/config.js';
+import { config } from '../config/config.js';
 
 export const connectDB = async () => {
   try {
@@ -12,6 +12,7 @@ export const connectDB = async () => {
     process.exit(1);
   }
 };
+
 
 export const disconnectDB = async () => {
   await mongoose.connection.close();
