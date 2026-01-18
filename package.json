@@ -1,0 +1,34 @@
+{
+  "name": "init",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/yyejin00/11-sprint-mission-be#readme",
+  "bugs": {
+    "url": "https://github.com/yyejin00/11-sprint-mission-be/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yyejin00/11-sprint-mission-be.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "nodemon --env-file=./env/.env.development src/server.js",
+    "start": "node --env-file=./env/.env.production dist/server.js",
+    "format": "prettier --write src/* src/**/*.js",
+    "format:check": "prettier --check src/**/*.js"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongoose": "^9.1.4",
+    "zod": "^4.3.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
+    "nodemon": "^3.1.11",
+    "prettier": "^3.8.0"
+  }
+}
