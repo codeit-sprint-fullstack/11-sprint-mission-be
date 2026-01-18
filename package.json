@@ -15,7 +15,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --watch ./src/* ./src/server.js",
+    "dev": "nodemon --env-file=./env/.env.development src/server.js",
+    "start": "node --env-file=./env/.env.production dist/server.js",
     "format": "prettier --write src/* src/**/*.js",
     "format:check": "prettier --check src/**/*.js"
   },

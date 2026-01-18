@@ -17,7 +17,7 @@ export default [
       "prefer-const": "error",
       "no-var": "error",
       semi: ["error", "always"],
-      quotes: ["warn", "single", { avoidEscape: true }],
+      //quotes: ["warn", "single", { avoidEscape: true }],
     },
   },
 ];
