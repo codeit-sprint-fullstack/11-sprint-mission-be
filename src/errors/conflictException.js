@@ -1,4 +1,4 @@
-import { HttpException } from "./httpException";
+import { HttpException } from "./httpException.js";
 
 export class conflictException extends HttpException {
   constructor(description = "CONFLICT") {

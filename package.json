@@ -13,7 +13,7 @@
   "license": "ISC",
   "author": "",
   "type": "module",
-  "main": "index.js",
+  "main": "src/server.js",
   "scripts": {
     "dev": "nodemon --env-file=./env/.env.development src/server.js",
     "start": "node --env-file=./env/.env.production dist/server.js",
