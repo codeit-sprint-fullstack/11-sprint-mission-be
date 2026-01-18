@@ -1,0 +1,50 @@
+{
+  "name": "11-sprint-mission-be",
+  "version": "1.0.0",
+  "description": "backendSprint",
+  "main": "src/server.js",
+  "type": "module",
+  "imports": {
+    "#repository": "./src/repository/index.js"
+  },
+  "scripts": {
+    "dev": "nodemon --env-file=./.env/.env.development src/server.js",
+    "start": "node src/server.js",
+    "seedData": "node --env-file=./.env/.env.development src/data/seed.js",
+    "format": "prettier --write src/**/*.js",
+    "format:check": "prettier --check src/**/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BackNo23/11-sprint-mission-be.git"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": {
+    "name": "kuzhi23",
+    "email": "marvel_net@nvar.com"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BackNo23/11-sprint-mission-be/issues"
+  },
+  "homepage": "https://github.com/BackNo23/11-sprint-mission-be#readme",
+  "engines": {
+    "node": "^24.11.0",
+    "npm": "^11.6.2"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongoose": "^9.1.4",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1",
+    "zod": "^4.3.5"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
+    "nodemon": "^3.1.11",
+    "prettier": "^3.8.0"
+  }
+}
