@@ -5,6 +5,7 @@ import { config } from '../src/config/config.js';
 
 mongoose.connect(config.MONGO_URI);
 
+
 await Product.insertMany(itemDate);
 
 mongoose.connect.close();

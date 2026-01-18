@@ -1,5 +1,5 @@
 import express from 'express';
-import { itemRouter } from './items.js';
+import { productRouter } from './productRoutes.js';
 
 export const router = express.Router();
 
@@ -10,4 +10,4 @@ router.get('/', (req, res) => {
   })
 })
 
-router.use('/items', itemRouter);
+router.use('/items', productRouter);

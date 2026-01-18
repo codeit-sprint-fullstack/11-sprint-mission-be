@@ -3,13 +3,32 @@ import { NotFoundException } from '../errors/notFoundException.js';
 import { BadRequestException } from '../errors/badRequestException.js';
 import { Product } from '../models/product.js';
 
-export const itemRouter = express.Router();
+export const productRouter = express.Router();
 
 //상품 목록 조회
-itemRouter.get('/', async (req, res, next) => {
+productRouter.get('/', async (req, res, next) => {
   try {
-    const items = await Product.find();
+    const offset = parseInt(req.query.offset, 10) || 0;
+    const limit = parseInt(req.query.limit, 10) || 0;
+    const { name, description } = req.query;
+    const filter = {};
 
+    //포함된....뭘까요...어떻게 해야할까요 ..ㅠㅠㅠ
+    if (name) {
+      filter.name = name
+    }
+
+    if (description) {
+      filter.description =description
+    }
+  
+    const items = await Product.find()
+      .sort({ createdAt: -1 })
+      .skip(offset)
+      .limit(limit)
+
+
+    
     res.json({
       success: true,
       data: items,
@@ -20,10 +39,10 @@ itemRouter.get('/', async (req, res, next) => {
 });
 
 //상품 상세 조회
-itemRouter.get('/:id', async (req, res, next) => {
+productRouter.get('/:id', async (req, res, next) => {
   try {
-    const id = await Product.findById(req.params.id);
-    const item = Product.find((i) => i.id === id);
+    const id = req.params.id;
+    const item = await Product.findById(id);
 
     if (!item) {
       throw new NotFoundException('상품을 찾을 수 없습니다.');
@@ -40,7 +59,7 @@ itemRouter.get('/:id', async (req, res, next) => {
 });
 
 //상품등록
-itemRouter.post('/', (req, res, next) => {
+productRouter.post('/', async (req, res, next) => {
   try {
     const { name, description, price, tags } = req.body;
 
@@ -48,18 +67,15 @@ itemRouter.post('/', (req, res, next) => {
       throw new BadRequestException('이름과 가격은 필수 입니다.');
     }
 
-    const newItem = {
-      id: nextId++,
+    const newItem = await Product.create({
       name,
       price,
       description,
       tags,
-    };
-
-    items.push(newItem);
+    });
 
     res.status(201).json({
-      seccess: true,
+      success: true,
       data: newItem,
       message: '상품 등록 완료',
     });
@@ -69,28 +85,29 @@ itemRouter.post('/', (req, res, next) => {
 });
 
 //상품 수정
-itemRouter.patch('/:id', (req, res, next) => {
+productRouter.patch('/:id', async (req, res, next) => {
   try {
-    const id = parseInt(req.params.id);
+    const id = req.params.id;
+    const item = await Product.findById(id);
+
     const { name, description, price, tags } = req.body;
 
-    const itemIndex = Product.findIndex((i) => i.id === id);
-
-    if (itemIndex === -1) {
+    if (item === null) {
       throw new NotFoundException('상품을 찾을 수 없습니다.');
     }
 
-    items[itemIndex] = {
-      ...items[itemIndex],
-      ...(name !== undefined ? { name } : {}),
-      ...(price !== undefined ? { price } : {}),
+    const updateItem = {
+      name,
       description,
+      price,
       tags,
     };
 
+    const updatedItem = await Product.findByIdAndUpdate(id, updateItem);
+
     res.json({
       success: true,
-      data: items[itemIndex],
+      data: updatedItem,
       message: '상품 수정 완료',
     });
   } catch (error) {
@@ -99,16 +116,14 @@ itemRouter.patch('/:id', (req, res, next) => {
 });
 
 //상품삭제
-itemRouter.delete('/:id', (req, res, next) => {
+productRouter.delete('/:id', async (req, res, next) => {
   try {
-    const id = parseInt(req.params.id);
-    const itemIndex = Product.findIndex((i) => i.id === id);
+    const id = req.params.id;
+    const item = await Product.findByIdAndDelete(id);
 
-    if (itemIndex === -1) {
+    if (item === null) {
       throw new NotFoundException('상품을 찾을 수 없습니다.');
     }
-
-    items.splice(itemIndex, 1);
 
     res.json({
       success: true,
