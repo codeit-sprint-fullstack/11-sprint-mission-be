@@ -1,9 +1,9 @@
 export const cors = (req, res, next) => {
   const origin = req.headers.origin; // 클라이언트 주소 
+  const isProduction = process.env.NODE_ENV === 'production';
 
   const whiteList = [
-    'https://your-production-site.com', // 서비스 도메인(유저용 프론트)
-    'https://admin.your-site.com' // 어드민 도메인(관리자용 프론트)
+    'http://localhost:5173/'
   ];
 
   const isAllowed = !isProduction || (origin && whiteList.includes(origin));

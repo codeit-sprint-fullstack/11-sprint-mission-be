@@ -25,19 +25,8 @@ export const validate = (target, schema) => {
           fieldErrors,
         );
       }
-      if (!result.success) {
-        const { fieldErrors } = flattenError(result.error);
 
-        if (isProduction) {
-          throw new BadRequestException(ERROR_MESSAGE.INVALID_INPUT);
-        }
-
-        throw new BadRequestException(
-          ERROR_MESSAGE.VALIDATION_FAILED,
-          fieldErrors,
-        );
-      }
-      req[target] = result.data; // 고칠것 
+      req[target] = result.data; 
       next();
     } catch (error) {
       next(error);

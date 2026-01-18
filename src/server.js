@@ -2,6 +2,7 @@ import express from "express";
 import { config } from "#config";
 import { router } from "./routes/index.js";
 import { connectDB, disconnectDB } from "#db/index.js";
+import { cors, errorHandler } from "#middlewares";
 
 
 
@@ -17,13 +18,13 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true })); 
 
 //CORS 미들웨어
-// app.use(cors);
+app.use(cors);
 
 //모든 라우트 등록
 app.use('/', router);
 
 // 에러 핸들링 
-// app.use(errorHandler);
+app.use(errorHandler)
 
 
 const server = app.listen(config.PORT, () => {

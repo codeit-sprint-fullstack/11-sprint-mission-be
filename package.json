@@ -30,6 +30,7 @@
   },
   "homepage": "https://github.com/sumforest-ha/11-sprint-mission-be#readme",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^5.2.1",
     "mongoose": "^9.1.4",
     "zod": "^4.3.5"
