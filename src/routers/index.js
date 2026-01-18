@@ -1,0 +1,1 @@
+import { productRouter } from "./products";

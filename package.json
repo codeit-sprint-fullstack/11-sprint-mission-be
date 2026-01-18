@@ -15,16 +15,19 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "node src/server.js",
+    "dev": "nodemon --watch ./src/* ./src/server.js",
     "format": "prettier --write src/* src/**/*.js",
     "format:check": "prettier --check src/**/*.js"
   },
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "mongoose": "^9.1.4",
+    "zod": "^4.3.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "eslint": "^9.39.2",
+    "nodemon": "^3.1.11",
     "prettier": "^3.8.0"
   }
 }
