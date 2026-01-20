@@ -5,10 +5,10 @@ import { requestTimer } from './middlewares/requestTimer.js';
 import { cors } from './middlewares/cors.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { config, isDevelopment } from './config/config.js';
-import { connectDB } from './db/index.js';
+import { connectDB, disconnectDB } from './db/index.js';
 
 const app = express();
-const PORT = 5005;
+const PORT = config.PORT;
 connectDB();
 
 app.use(express.json());
@@ -22,15 +22,13 @@ if (isDevelopment) {
 
 app.use(express.static('public'));
 app.use(cors);
-app.use(logger);
-app.use(requestTimer);
 
 app.use('/', router);
 
 app.use(errorHandler);
 
-app.listen(config.PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${config.PORT}`);
+const server = app.listen(config.PORT, () => {
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
 
 const shutdown = (signal) => {
