@@ -3,10 +3,10 @@ import { isProduction } from '#config';
 export const cors = (req, res, next) => {
   const origin = req.headers.origin;
 
-  //render 주소 추가 + 프론트엔드 폴더 주소 확인 후 추가할 것
   const whiteList = [
     'http://localhost:5001',
-    'http://localhost:5173',
+    'http://localhost:3000',
+    'https://one1-sprint-mission-be-tdl2.onrender.com',
   ];
 
   const isAllowed = !isProduction || (origin && whiteList.includes(origin));
