@@ -6,7 +6,7 @@
   "scripts": {
     "build": "rimraf dist && babel src -d dist",
     "dev": "nodemon --env-file=./env/.env.development src/server.js",
-    "start": "node --env-file=./env/.env.production dist/server.js",
+    "start": "node dist/server.js",
     "format": "prettier --write src/**/*.js",
     "format:check": "prettier --check src/**/*.js"
   },
