@@ -1,5 +1,6 @@
 import express from 'express';
 import { prisma } from '#db/prisma.js';
+import { tr } from 'zod/locales';
 
 export const productsRouter = express.Router();
 
@@ -130,7 +131,7 @@ productsRouter.delete('/:id', async (req, res, next) => {
         .json({ message: '요청한 게시물이 존재하지 않습니다.' });
     }
 
-    await prisma.article.delete({
+    await prisma.product.delete({
       where: { id },
     });
 
@@ -168,8 +169,10 @@ productsRouter.get('/', async (req, res, next) => {
         take: limit,
         select: {
           id: true,
-          title: true,
-          content: true,
+          name: true,
+          description: true,
+          price: true,
+          tags: true,
           createdAt: true,
         },
       }),
