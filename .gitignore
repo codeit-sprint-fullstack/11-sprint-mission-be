@@ -1,4 +1,10 @@
 node_modules
-server/env/
+
+.env
+.env.*
+!.env.example
+
 generated/
 .DS_Store
+/generated/prisma
+

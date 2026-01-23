@@ -1,6 +1,8 @@
 // DB 연결
-import mongoose from 'mongoose';
-import { config } from '../config/config.js';
+
+import { PrismaClient } from '../../generated/prisma/index.js';
+
+
 
 export const connectDB = async () => {
   try {

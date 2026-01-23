@@ -16,7 +16,7 @@ export const createProduct = async (req, res, next) => {
 export const getProducts = async (req, res, next) => {
   try {
     const page = Number(req.query.page) || 1;
-    const pageSige = Number(req, query.pageSige) || 1;
+    const pageSize = Number(req.query.pageSige) || 10; // 기본값 수정
     const orderBy = req.query.orderBy || 'recent';
     const keyword = req.query.keyword || '';
 
@@ -34,7 +34,7 @@ export const getProducts = async (req, res, next) => {
 
 export const getProductById = async (req, res, next) => {
   try {
-    const product = await productService.getProductById(req.params.is);
+    const product = await productService.getProductById(req.params.id);
     res.json(product);
   } catch (error) {
     next(error);

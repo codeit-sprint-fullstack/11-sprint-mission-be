@@ -1,0 +1,37 @@
+{
+  "name": "panda-market-server",
+  "version": "1.0.0",
+  "description": "판다마켓 백엔드 서버",
+  "type": "module",
+  "main": "server.js",
+  "imports": {
+    "#generated/*": "./generated/*",
+    "#config": "./src/config/config.js",
+    "#db/*": "./src/db/*",
+    "#routes/*": "./src/routes/*"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "nodemon --env-file=./env/.env.development server/server.js",
+    "prod": "node --env-file=./env/.env,production server/server.js",
+    "prisma:migrate": "dotenv -e ./env/.env.development -- npx prisma migrate dev",
+    "prisma:studio": "dotenv -e ./env/.env.development -- npx prisma studio",
+    "prisma:generate": "dotenv -e ./env/.env.development -- npx prisma generate",
+    "format": "nps prettier --write .",
+    "format:check": "npx prettier --check ."
+  },
+  "dependencies": {
+    "@prisma/client": "^5.14.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.3.4",
+    "zod": "^3.23.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0",
+    "prisma": "^5.14.0"
+  }
+}
