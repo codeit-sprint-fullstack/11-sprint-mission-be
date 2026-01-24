@@ -1,0 +1,1 @@
+export { articleRepository, commentRepository } from './articles.repository.js'

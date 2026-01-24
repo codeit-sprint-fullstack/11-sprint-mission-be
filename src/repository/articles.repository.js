@@ -1,23 +1,74 @@
-import { prisma } from "#db/prisma.js";
+import { prisma } from '#db/prisma.js';
 
-//게시글 생성 
-function creatArticle(data) {
+//게시글 등록
+function createArticle(data) {
   return prisma.article.create({
     data,
-  })
+  });
 }
 
 // 특정 게시글 조회 
-function findArticleId(id) {
+function findArticleById(id) {
   return prisma.article.findUnique({
     where: { id },
   });
 }
 
-// 모든 게시글 조회 
-function findAllArticles() {
- return prisma.article.findMany();
+// 게시글 수정
+function updateArticle(id, data) {
+  return prisma.article.update({
+    where: { id },
+    data,
+  });
 }
 
-// 특정 게시글 수정 
-function find
+//게시글 삭제
+function deleteArticle(id) {
+  return prisma.article.delete({
+    where: { id },
+  });
+}
+
+// 게시글 목록 조회
+async function findArticlesByFilter(
+  page = 1,
+  limit = 10,
+  search = '',
+) {
+  const skip = (page - 1) * limit;
+  const where = search
+    ? {
+        OR: [
+          { title: { contains: search, mode: 'insensitive' } },
+          { content: { contains: search, mode: 'insensitive' } },
+        ],
+      }
+    : {};
+  const [articles, totalCount] = await Promise.all([
+    prisma.article.findMany({
+      where,
+      skip,
+      take: limit,
+      orderBy: { createdAt: 'desc' },
+      select: {
+        id: true,
+        title: true,
+        content: true,
+        createdAt: true, 
+      }
+    }),
+    prisma.article.count({ where }),
+  ]);
+  return {
+    articles,
+    totalCount,
+  };
+}
+
+export const articleRepository = {
+  createArticle,
+  findArticleById,
+  updateArticle,
+  deleteArticle,
+  findArticlesByFilter,
+};

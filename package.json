@@ -5,7 +5,12 @@
   "imports": {
     "#generated/*": "./generated/*",
     "#config": "./src/config/config.js",
-    "#db/*": "./src/db/*"
+    "#db/*": "./src/db/*",
+    "#repository": "./src/repository/index.js",
+    "#constants": "./src/constants/index.js",
+    "#utils": "./src/utils/index.js",
+    "#middlewares": "./src/middlewares/index.js",
+    "#exceptions": "./src/exceptions/index.js"
   },
   "engines": {
     "node": ">=22.0.0"
