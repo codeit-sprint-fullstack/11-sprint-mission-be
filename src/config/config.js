@@ -6,7 +6,7 @@ const envSchema = z.object({
     .enum(['development', 'production', 'test'])
     .default('development'),
   PORT: z.coerce.number().min(1000).max(65535).default(5001),
-  MONGO_URI: z.string().startsWith('mongodb+srv://'),
+  MONGO_URI: z.string().startsWith('mongodb'),
 });
 
 const parseEnvironment = () => {
