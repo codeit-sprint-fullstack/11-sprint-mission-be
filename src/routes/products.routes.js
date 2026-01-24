@@ -1,9 +1,7 @@
 import express from 'express';
-import { NotFoundException } from '#exceptions';
-import { HTTP_STATUS } from '#constants';
-import { BadRequestException } from '#exceptions';
+import { NotFoundException, BadRequestException } from '#exceptions';
+import { HTTP_STATUS, ERROR_MESSAGE } from '#constants';
 import { validateProduct } from '#middlewares';
-import { ERROR_MESSAGE } from '#constants';
 import { Product } from '#models';
 import mongoose from 'mongoose';
 

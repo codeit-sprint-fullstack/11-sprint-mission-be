@@ -1,9 +1,9 @@
 import express from 'express';
+import { config } from '#config';
 import { router } from './routes/index.js';
-import { config } from './config/config.js';
-import { cors } from './middlewares/cors.middleware.js';
-import { errorHandler } from './middlewares/errorHandler.middleware.js';
-import { connectDB, disconnectDB } from './db/index.js';
+import cors from 'cors';
+import { errorHandler } from '#middlewares';
+import { connectDB, disconnectDB } from '#db/index.js';
 
 const app = express();
 connectDB();
@@ -12,7 +12,7 @@ connectDB();
 app.use(express.json());
 
 // cors
-app.use(cors);
+app.use(cors());
 
 // 모든 라우트 등록
 app.use('/', router);
