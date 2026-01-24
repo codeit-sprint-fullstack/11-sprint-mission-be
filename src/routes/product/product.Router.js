@@ -1,13 +1,14 @@
 import express from 'express';
-import { productRepository } from '#repositories/productRepository.js';
-import { HTTP_STATUS } from '../../constants/http-status';
-import { BadRequestException } from '../../exceptions';
-import { ERROR_MESSAGE } from '../../constants';
+import { productRepository } from '../../repository/productRepository.js';
+import { HTTP_STATUS } from '../../constants/http-status.js';
+import { BadRequestException } from '../../exceptions/BadRequsetException.js';
+import { NotFoundException } from '../../exceptions/NotFoundException.js';
+import { ERROR_MESSAGE } from '../../constants/errors.js';
 
-export const productRouter = express.Router();
+export const productsRouter = express.Router();
 
 // 1. 상품 등록 API
-productRouter.post('/', async (req, res, next) => {
+productsRouter.post('/', async (req, res, next) => {
   try {
     const { name, description, price } = req.body;
 
@@ -22,7 +23,7 @@ productRouter.post('/', async (req, res, next) => {
 });
 
 // 2. 상품 목록 조회 API (페이지네이션, 정렬, 검색)
-productRouter.get('/', async (req, res, next) => {
+productsRouter.get('/', async (req, res, next) => {
   try {
     const {
       page = 1,
@@ -49,7 +50,7 @@ productRouter.get('/', async (req, res, next) => {
 });
 
 // 3. 상품 상세 조회 API
-productRouter.get('/:id', async (req, res, next) => {
+productsRouter.get('/:id', async (req, res, next) => {
   try {
     const product = await productRepository.findProductById(req.params.id);
 
@@ -64,7 +65,7 @@ productRouter.get('/:id', async (req, res, next) => {
 });
 
 // 4. 상품 수정 API (PATCH)
-productRouter.patch('/:id', async (req, res, next) => {
+productsRouter.patch('/:id', async (req, res, next) => {
   try {
     const exists = await productRepository.findProductById(req.params.id);
     if (!exists) {
@@ -81,7 +82,7 @@ productRouter.patch('/:id', async (req, res, next) => {
 });
 
 // 5. 상품 삭제 API
-productRouter.delete('/:id', async (req, res, next) => {
+productsRouter.delete('/:id', async (req, res, next) => {
   try {
     const exists = await productRepository.findProductById(req.params.id);
     if (!exists) {

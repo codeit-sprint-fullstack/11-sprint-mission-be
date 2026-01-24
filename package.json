@@ -1,0 +1,46 @@
+{
+  "name": "panda-market-server",
+  "version": "1.0.0",
+  "description": "판다마켓 백엔드 서버",
+  "type": "module",
+  "main": "server.js",
+  "imports": {
+    "#config": "./src/config/index.js",
+    "#db/*": "./src/db/*",
+    "#repositories/*": "./src/repositories/*",
+    "#routes/*": "./src/routes/*",
+    "#constants": "./src/constants/index.js",
+    "#constants/*": "./src/constants/*",
+    "#exceptions/*": "./src/exceptions/*",
+    "#middleware/*": "./src/middleware/*",
+    "#generated/*": "./generated/*"
+  },
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "nodemon --env-file=./src/env/.env.development server.js",
+    "prod": "node --env-file=./env/.env,production server/server.js",
+    "prisma:migrate": "dotenv -e ./src/env/.env.development -- npx prisma migrate dev",
+    "prisma:generate": "dotenv -e ./src/env/.env.development -- npx prisma generate",
+    "prisma:seed": "dotenv -e ./src/env/.env.development -- node scripts/seed.js",
+    "format": "nps prettier --write .",
+    "format:check": "npx prettier --check ."
+  },
+  "dependencies": {
+    "@faker-js/faker": "^10.2.0",
+    "@prisma/adapter-pg": "^7.3.0",
+    "@prisma/client": "^7.3.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.3.4",
+    "pg": "^8.17.2",
+    "zod": "^3.23.4"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^11.0.0",
+    "nodemon": "^3.1.0",
+    "prisma": "^7.3.0"
+  }
+}

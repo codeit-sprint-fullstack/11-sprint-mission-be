@@ -1,17 +1,17 @@
 import express from 'express';
 import cors from 'cors';
-import { config } from '#config';
-import { connectDB, disconnectDB } from '#db/index.js';
-import router from '#routes/index.js';
-import { errorHandler } from './middleware/errorHandler.middleware.js';
+import { config } from './src/config/config.js';
+import { router as apiRouter } from '#routes/index.js';
+import { errorHandler } from './src/middleware/errorHandler.middleware.js';
 
 const app = express();
 
-await connectDB();
+app.use(express.json());
 
 app.use(cors());
-app.use(express.json());
-app.use('/', router);
+
+app.use('/api', apiRouter);
+
 app.use(errorHandler);
 
 const server = app.listen(config.PORT, () => {

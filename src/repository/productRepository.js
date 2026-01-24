@@ -50,7 +50,7 @@ function deleteProduct(id) {
   });
 }
 
-export const postRepository = {
+export const productRepository = {
   createProduct,
   findProductById,
   findAllProducts,

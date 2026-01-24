@@ -1,4 +1,4 @@
-import { HttpException } from '../errors/httpException.js';
+import { HttpException } from '../exceptions/HttpException.js';
 
 export const errorHandler = (error, req, res, _next) => {
   // 커스텀 예외 처리
