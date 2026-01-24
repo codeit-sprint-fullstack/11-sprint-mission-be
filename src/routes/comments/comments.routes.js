@@ -7,7 +7,7 @@ import { idParamSchema, updateCommentSchema } from './comments.schema.js';
 
 export const commentsRouter = express.Router();
 
-//PATCH/ comments/:id - 게시글 수정
+//PATCH/ comments/:id - 댓글 수정
 commentsRouter.patch(
   '/:id',
   validate('params', idParamSchema),
@@ -32,7 +32,7 @@ commentsRouter.patch(
   },
 );
 
-// DELETE /comments/:id - 게시글 삭제
+// DELETE /comments/:id - 댓글 삭제
 commentsRouter.delete(
   '/:id',
   validate('params', idParamSchema),

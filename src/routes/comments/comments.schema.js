@@ -11,6 +11,5 @@ export const idParamSchema = z.object({
 
 //댓글 수정 스키마
 export const updateCommentSchema = z.object({
-  title: z.string().min(1, '제목은 필수입니다.'),
   content: z.string().min(1, '내용은 필수입니다.'),
 });
