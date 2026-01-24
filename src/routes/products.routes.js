@@ -1,7 +1,7 @@
 import express from 'express';
 import { NotFoundException, BadRequestException } from '#exceptions';
 import { HTTP_STATUS, ERROR_MESSAGE } from '#constants';
-import { validateProduct } from '#middlewares';
+import { validateProductPost, validateProductPatch } from '#middlewares';
 import { Product } from '#models';
 import mongoose from 'mongoose';
 
@@ -73,25 +73,15 @@ productsRouter.get('/:id', async (req, res, next) => {
 });
 
 // POST /products - 새 상품 등록
-productsRouter.post('/', validateProduct, async (req, res, next) => {
+productsRouter.post('/', validateProductPost, async (req, res, next) => {
   try {
     const { name, description, price, tags } = req.body;
-
-    if (!name || !price) {
-      throw new BadRequestException('상품 이름과 가격은 필수입니다.');
-    }
-
-    const now = new Date().toISOString();
 
     const newProduct = new Product({
       name,
       description,
       price,
       tags,
-      images: [],
-      favoriteCount: 0,
-      createdAt: now,
-      updatedAt: now,
     });
 
     await newProduct.save();
@@ -107,7 +97,7 @@ productsRouter.post('/', validateProduct, async (req, res, next) => {
 });
 
 // PATCH /products/:id - 상품 정보 수정
-productsRouter.patch('/:id', validateProduct, async (req, res, next) => {
+productsRouter.patch('/:id', validateProductPatch, async (req, res, next) => {
   try {
     const { name, description, price, tags } = req.body;
     const { id } = req.params;
@@ -116,16 +106,17 @@ productsRouter.patch('/:id', validateProduct, async (req, res, next) => {
       throw new BadRequestException(ERROR_MESSAGE.INVALID_PRODUCT_ID);
     }
 
-    const updatedProduct = await Product.findByIdAndUpdate(
-      id,
-      {
-        name,
-        description,
-        price,
-        tags,
-      },
-      { new: true },
-    );
+    // 실제로 전달된 필드만 업데이트 하는 필터
+    const updateFields = {};
+    if (name !== undefined) updateFields.name = name;
+    if (description !== undefined) updateFields.description = description;
+    if (price !== undefined) updateFields.price = price;
+    if (tags !== undefined) updateFields.tags = tags;
+
+    const updatedProduct = await Product.findByIdAndUpdate(id, updateFields, {
+      new: true,            // 최신 데이터 반환 (false면 업데이트 전 데이터 반환함. true 필수)
+      runValidators: true,  // 몽구스로 인한 유효하지 않은 값 차단
+    });
 
     if (!updatedProduct) {
       throw new NotFoundException(ERROR_MESSAGE.NOT_FOUND);
