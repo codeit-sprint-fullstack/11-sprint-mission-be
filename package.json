@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "main": "src/server.js",
   "type": "module",
+  "imports": {
+    "#db/*": "./src/db/*"
+  },
   "scripts": {
     "dev": "nodemon --env-file=./env/.env.development src/server.js",
     "start": "node src/server.js",
@@ -21,14 +24,20 @@
   "license": "MIT",
   "description": "",
   "dependencies": {
+    "@prisma/adapter-pg": "^7.3.0",
+    "@prisma/client": "^7.3.0",
+    "dotenv": "^17.2.3",
+    "dotenv-cli": "^11.0.0",
     "express": "^5.2.1",
     "mongoose": "^9.1.4",
-    "zod": "^4.3.5"
+    "pg": "^8.17.2",
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "eslint": "^9.39.2",
     "nodemon": "^3.1.11",
-    "prettier": "^3.8.0"
+    "prettier": "^3.8.0",
+    "prisma": "^7.3.0"
   }
 }
