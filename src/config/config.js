@@ -1,9 +1,11 @@
-import { z } from 'zod';
+import { flattenError, z } from 'zod';
 
 const envSchema = z.object({
-  NODE_ENV: z.enum(['development', 'production', 'test']),
-  PORT: z.coerce.number().min(1000).max(65535),
-  MONGO_URI: z.string().startsWith('mongodb+srv://'),
+  NODE_ENV: z
+    .enum(['development', 'production', 'test'])
+    .default('development'),
+  PORT: z.coerce.number().min(1000).max(65535).default(5005),
+  MONGO_URI: z.url(),
 });
 
 const parseEnvironment = () => {
@@ -11,11 +13,12 @@ const parseEnvironment = () => {
     return envSchema.parse({
       NODE_ENV: process.env.NODE_ENV,
       PORT: process.env.PORT,
-      MONGO_URI: process.env.MONGO_URI,
+      MONGO_URI: process.env.DATABASE_URL,
     });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      console.log('error.errors', error);
+      const { fieldErrors } = flattenError(error);
+      console.error('환경 변수 검증 실패:', fieldErrors);
     }
     process.exit(1);
   }
