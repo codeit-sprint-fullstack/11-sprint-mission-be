@@ -18,13 +18,6 @@ export const ERROR_MESSAGE = {
 
   // Product
   PRODUCT_NOT_FOUND: 'Product not found',
-  PRODUCT_NAME_REQUIRED: 'Product name is required',
-  PRODUCT_DESCRIPTION_REQUIRED: 'Product description is required',
-  FAILED_TO_FETCH_PRODUCTS: 'Failed to fetch products',
-  FAILED_TO_FETCH_PRODUCT: 'Failed to fetch product',
-  FAILED_TO_CREATE_PRODUCT: 'Failed to create product',
-  FAILED_TO_UPDATE_PRODUCT: 'Failed to update product',
-  FAILED_TO_DELETE_PRODUCT: 'Failed to delete product',
 
   // Comment
   COMMENT_NOT_FOUND: 'Comment not found',
