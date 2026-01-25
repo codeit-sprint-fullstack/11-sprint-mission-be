@@ -1,17 +1,8 @@
 import { Prisma } from '#generated/prisma/client.ts';
 import { ERROR_MESSAGE, HTTP_STATUS, PRISMA_ERROR } from '#constants';
-import { HttpException } from '#exceptions';
 
 export const errorHandler = (err, req, res, _next) => {
   console.error(err.stack);
-
-  if (err instanceof HttpException) {
-    return res.status(err.statusCode).json({
-      success: false,
-      message: err.message,
-      ...(err.details && { details: err.details }),
-    });
-  }
 
   if (err instanceof Prisma.PrismaClientKnownRequestError) {
     if (err.code === PRISMA_ERROR.UNIQUE_CONSTRAINT) {
