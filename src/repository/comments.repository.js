@@ -1,7 +1,7 @@
 import { prisma } from '#db/prisma.js';
 
 //중코마켓 댓글 등록
-function createMarketComment(data) {
+function createProductComment(data) {
   return prisma.comment.create({
     data,
   });
@@ -38,7 +38,7 @@ function deleteComment(id) {
 }
 
 // 중고마켓 댓글 목록 조회 (수정할것))
-function findMarketComment(MarketId, limit, cursor) {
+function findProductComments(MarketId, limit, cursor) {
   const comments = prisma.comment.findMany({
     where: {
       MarketId,
@@ -65,7 +65,7 @@ function findMarketComment(MarketId, limit, cursor) {
 
 
 // 자유게시판 댓글 목록 조회
-function findArticleComment(articleId, limit, cursor) {
+function findArticleComments(articleId, limit, cursor) {
   const comments = prisma.comment.findMany({
     where: {
       articleId,
@@ -91,11 +91,11 @@ function findArticleComment(articleId, limit, cursor) {
 }
 
 export const commentRepository = {
-  createMarketComment,
+  createProductComment,
   createArticleComment,
   findCommentById,
   updateComment,
   deleteComment,
-  findMarketComment,
-  findArticleComment
+  findProductComments,
+  findArticleComments
 };

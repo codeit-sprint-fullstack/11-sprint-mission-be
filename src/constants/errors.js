@@ -14,47 +14,41 @@ export const ERROR_MESSAGE = {
 
   // 공통
   CONTENT_REQUIRED: '내용을 입력해주세요',
-  //게시글 관련
+  
+  // 상품 관련
+  PRODUCT_NOT_FOUND: '상품을 찾을 수 없습니다.',
+  // FAILED_TO_FETCH_PRODUCTS: '상품 목록을 불러올 수 없습니다.',
+  // FAILED_TO_FETCH_PRODUCT: '상품을 불러올 수 없습니다.',
+  // FAILED_TO_CREATE_PRODUCT: '상품을 생성할 수 없습니다.',
+  // FAILED_TO_UPDATE_PRODUCT: '상품을 수정할 수 없습니다.',
+  // FAILED_TO_DELETE_PRODUCT: '상품을 삭제할 수 없습니다.',
+
+
+  // 게시글 관련
   ARTICLE_NOT_FOUND: '게시글을 찾을 수 없습니다.',
   TITLE_REQUIRED: '제목을 입력해주세요',
-  FAILED_TO_FETCH_ARTICLES: '게시글 목록을 불러올 수 없습니다.',
-  FAILED_TO_FETCH_ARTICLE: '게시글을 불러올 수 없습니다.',
-  FAILED_TO_CREATE_ARTICLE: '게시글을 생성할 수 없습니다.',
-  FAILED_TO_UPDATE_ARTICLE: '게시글을 수정할 수 없습니다.',
-  FAILED_TO_DELETE_ARTICLE: '게시글을 삭제할 수 없습니다.',
+  // FAILED_TO_FETCH_ARTICLES: '게시글 목록을 불러올 수 없습니다.',
+  // FAILED_TO_FETCH_ARTICLE: '게시글을 불러올 수 없습니다.',
+  // FAILED_TO_CREATE_ARTICLE: '게시글을 생성할 수 없습니다.',
+  // FAILED_TO_UPDATE_ARTICLE: '게시글을 수정할 수 없습니다.',
+  // FAILED_TO_DELETE_ARTICLE: '게시글을 삭제할 수 없습니다.',
 
-  //댓글 관련
+  // 댓글 관련
   COMMENT_NOT_FOUND: '댓글을 찾을 수 없습니다.',
-  FAILED_TO_FETCH_COMMENTS: '댓글 목록을 불러올 수 없습니다.',
-  FAILED_TO_FETCH_COMMENT: '댓글을 불러올 수 없습니다.',
-  FAILED_TO_CREATE_COMMENT: '댓글을 생성할 수 없습니다.',
-  FAILED_TO_UPDATE_COMMENT: '댓글을 수정할 수 없습니다.',
-  FAILED_TO_DELETE_COMMENT: '댓글을 삭제할 수 없습니다.',
+  // FAILED_TO_FETCH_COMMENTS: '댓글 목록을 불러올 수 없습니다.',
+  // FAILED_TO_FETCH_COMMENT: '댓글을 불러올 수 없습니다.',
+  // FAILED_TO_CREATE_COMMENT: '댓글을 생성할 수 없습니다.',
+  // FAILED_TO_UPDATE_COMMENT: '댓글을 수정할 수 없습니다.',
+  // FAILED_TO_DELETE_COMMENT: '댓글을 삭제할 수 없습니다.',
+
+  // Validation
+  INVALID_INPUT: 'Invalid input',
+  VALIDATION_FAILED: 'Validation failed',
 };
 
-// // 에러 메시지 상수 (아래 에러 메시지 참고해 보시면 좋을거 같아서 남겨놓았습니다)
-// export const ERROR_MESSAGE = {
-//   // User 관련
-//   USER_NOT_FOUND: 'User not found',
-//   EMAIL_REQUIRED: 'Email is required',
-//   EMAIL_ALREADY_EXISTS: 'Email already exists',
-//   FAILED_TO_FETCH_USERS: 'Failed to fetch users',
-//   FAILED_TO_FETCH_USER: 'Failed to fetch user',
-//   FAILED_TO_CREATE_USER: 'Failed to create user',
-//   FAILED_TO_UPDATE_USER: 'Failed to update user',
-//   FAILED_TO_DELETE_USER: 'Failed to delete user',
 
-//   // Post 관련
-//   POST_NOT_FOUND: 'Post not found',
-//   TITLE_REQUIRED: 'Title is required',
-//   AUTHOR_ID_REQUIRED: 'Author ID is required',
-//   SEARCH_QUERY_REQUIRED: 'Search query is required',
-//   FAILED_TO_FETCH_POSTS: 'Failed to fetch posts',
-//   FAILED_TO_FETCH_POST: 'Failed to fetch post',
-//   FAILED_TO_CREATE_POST: 'Failed to create post',
-//   FAILED_TO_UPDATE_POST: 'Failed to update post',
-//   FAILED_TO_DELETE_POST: 'Failed to delete post',
-//   FAILED_TO_SEARCH_POSTS: 'Failed to search posts',
+
+
 //   FAILED_TO_FETCH_PUBLISHED_POSTS: 'Failed to fetch published posts',
 //   FAILED_TO_FETCH_USER_WITH_POSTS: 'Failed to fetch user with posts',
 //   FAILED_TO_DELETE_POST_WITH_COMMENTS: 'Failed to delete post with comments',
@@ -69,9 +63,4 @@ export const ERROR_MESSAGE = {
 //   USER_NOT_FOUND_FROM_TOKEN: 'User not found from token',
 //   AUTH_FAILED: 'Authentication failed',
 //   INVALID_CREDENTIALS: 'Invalid email or password',
-
-//   // Validation
-//   INVALID_INPUT: 'Invalid input',
-//   VALIDATION_FAILED: 'Validation failed',
-
 // };

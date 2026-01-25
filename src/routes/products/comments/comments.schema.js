@@ -1,7 +1,7 @@
 import { z } from 'zod';
 
 // 댓글 생성 스키마
-export const createArticleCommentSchema = z.object({
+export const createProductCommentSchema = z.object({
   content: z.string().min(1, '내용은 필수입니다.'),
 });
 
@@ -13,4 +13,3 @@ export const cursorQuerySchema = z.object({
     message: '유효한 ULID 형식의 ID가 아닙니다.',
   }).optional()
 });
-

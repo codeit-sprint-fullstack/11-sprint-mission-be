@@ -1,25 +1,25 @@
 import express from 'express';
-import { articleRepository } from '#repository';
+import { productRepository } from '#repository';
 import { HTTP_STATUS, ERROR_MESSAGE } from '#constants';
 import { commentRepository } from '#repository';
 import { validate } from '#middlewares';
-import { idParamSchema } from '../articles.schema.js';
 import { NotFoundException } from '#exceptions';
-import { cursorQuerySchema, createArticleCommentSchema } from './comments.schema.js';
+import { cursorQuerySchema, createProductCommentSchema } from './comments.schema.js';
+import { idParamSchema } from '../products.schema.js';
 
-export const articleCommentsRouter = express.Router({
+export const productCommentsRouter = express.Router({
   mergeParams: true,
 });
 
 //POST /api/articles - 특정 게시글 댓글 등록
-articleCommentsRouter.post(
+productCommentsRouter.post(
   '/',
-  validate('body', createArticleCommentSchema),
+  validate('body', createProductCommentSchema),
   async (req, res, next) => {
     try {
       const { content } = req.body;
 
-      const newComment = await commentRepository.createArticleComment({
+      const newComment = await commentRepository.createProductComment({
         content,
       });
 
@@ -32,7 +32,7 @@ articleCommentsRouter.post(
 
 
 //GET /api/articles/:id/comments - 특정 게시글 댓글목록 조회
-articleCommentsRouter.get(
+productCommentsRouter.get(
   '/',
   validate('params', idParamSchema),
   validate('query', cursorQuerySchema),
@@ -41,12 +41,12 @@ articleCommentsRouter.get(
       const { id } = req.params;
       const { limit, cursor } = req.query;
 
-      const article = await articleRepository.findArticleById(id);
-      if (!article) {
-        throw new NotFoundException(ERROR_MESSAGE.ARTICLE_NOT_FOUND);
+      const product = await productRepository.findProductById(id);
+      if (!product) {
+        throw new NotFoundException(ERROR_MESSAGE.PRODUCT_NOT_FOUND);
       }
     
-      const result = await commentRepository.findArticleComments(
+      const result = await commentRepository.findProductComments(
         id,
         limit,
         cursor,
