@@ -8,7 +8,9 @@
     "#config": "./src/config/config.js",
     "#db/*": "./src/db/*",
     "#constants": "./src/constants/index.js",
-    "#repository": "./src/repository/index.js"
+    "#repository": "./src/repository/index.js",
+    "#utils": "./src/utils/index.js",
+    "#middlewares": "./src/middlewares/index.js"
   },
   "scripts": {
     "dev": "nodemon --env-file=./env/.env.development src/server.js",
@@ -38,7 +40,6 @@
     "dotenv": "^17.2.3",
     "dotenv-cli": "^11.0.0",
     "express": "^5.2.1",
-    "mongoose": "^9.1.4",
     "pg": "^8.17.2",
     "zod": "^4.3.6"
   },

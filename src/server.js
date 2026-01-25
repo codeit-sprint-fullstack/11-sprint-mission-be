@@ -1,10 +1,8 @@
 import express from 'express';
 import { config, isDevelopment } from './config/config.js';
 import { router } from './routes/index.js';
-import { errorHandler } from './middlewares/errorHandler.js';
-import { cors } from './middlewares/cors.js';
-import { logger } from './middlewares/logger.js';
-// import { prisma } from '#db/prisma.js';
+import { cors, errorHandler, logger } from '#middlewares';
+import { prisma } from '#db/prisma.js';
 
 const app = express();
 
@@ -29,8 +27,7 @@ app.listen(config.PORT, () => {
   );
 });
 
-
-// process.on('SIGINT', async () => {
-//   await prisma.$disconnect();
-//   process.exit(0);
-// });
+process.on('SIGINT', async () => {
+  await prisma.$disconnect();
+  process.exit(0);
+});
