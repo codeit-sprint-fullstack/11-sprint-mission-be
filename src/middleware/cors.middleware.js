@@ -24,7 +24,7 @@ export const cors = (req, res, next) => {
   );
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
 
-  // Preflight(사전 요청) 처리
+  // 사전 요청 처리
   if (req.method === 'OPTIONS') {
     return res.sendStatus(200);
   }
