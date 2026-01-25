@@ -4,12 +4,17 @@
   "main": "src/server.js",
   "type": "module",
   "imports": {
-    "#db/*": "./src/db/*"
+    "#generated/*": "./generated/*",
+    "#config": "./src/config/config.js",
+    "#db/*": "./src/db/*",
+    "#constants": "./src/constants/index.js",
+    "#repository": "./src/repository/index.js"
   },
   "scripts": {
     "dev": "nodemon --env-file=./env/.env.development src/server.js",
     "start": "node --env-file=./env/.env.production src/server.js",
     "prod": "node --env-file=./env/.env.production src/server.js",
+    "seed": "node --env-file=./env/.env.development scripts/seed.js",
     "prisma:migrate": "dotenv -e ./env/.env.development -- npx prisma migrate dev",
     "prisma:studio": "dotenv -e ./env/.env.development -- npx prisma studio",
     "prisma:generate": "dotenv -e ./env/.env.development -- npx prisma generate",
