@@ -5,12 +5,18 @@
   "main": "src/server.js",
   "type": "module",
   "imports": {
-    "#repository": "./src/repository/index.js"
+    "#generated/*": "./generated/*",
+    "#repository": "./src/repository/index.js",
+    "#config": "./src/config/config.js",
+    "#db/*": "./src/db/*"
   },
   "scripts": {
     "dev": "nodemon --env-file=./.env/.env.development src/server.js",
     "start": "node src/server.js",
-    "seedData": "node --env-file=./.env/.env.development src/data/seed.js",
+    "prisma:migrate": "dotenv -e ./.env/.env.development -- npx prisma migrate dev",
+    "prisma:studio": "dotenv -e ./.env/.env.development -- npx prisma studio",
+    "prisma:generate": "dotenv -e ./.env/.env.development -- npx prisma generate",
+    "seed": "node --env-file=./.env/.env.development scripts/seed.js",
     "format": "prettier --write src/**/*.js",
     "format:check": "prettier --check src/**/*.js"
   },
@@ -35,16 +41,23 @@
     "npm": "^11.6.2"
   },
   "dependencies": {
+    "@prisma/adapter-pg": "^7.3.0",
+    "@prisma/client": "^7.3.0",
+    "dotenv": "^17.2.3",
+    "dotenv-cli": "^11.0.0",
     "express": "^5.2.1",
     "mongoose": "^9.1.4",
+    "pg": "^8.17.2",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^5.0.1",
-    "zod": "^4.3.5"
+    "zod": "^4.3.6"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
+    "@faker-js/faker": "^10.2.0",
     "eslint": "^9.39.2",
     "nodemon": "^3.1.11",
-    "prettier": "^3.8.0"
+    "prettier": "^3.8.0",
+    "prisma": "^7.3.0"
   }
 }

@@ -1,1 +1,2 @@
-export { productRepository } from "./produts.repository.js";
+export { articleRepository } from './aticle.repository.js';
+export { commentRepository } from './comment.repository.js';
