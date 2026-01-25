@@ -12,8 +12,8 @@ export const idParamSchema = z.object({
 // 페이지네이션, 검색 쿼리 스키마
 export const ListQuerySchema = z.object({
   page: z.coerce.number().int().positive().default(1),
-  limit: z.coerce.number().int().positive().max(100).default(10),
-  q: z.string().min(1, '검색어를 입력해주세요.'),
+  pageSize: z.coerce.number().int().positive().max(100).default(10),
+  keyword: z.string().min(1, '검색어를 입력해주세요.').optional(),
 });
 
 // 게시글 생성 스키마

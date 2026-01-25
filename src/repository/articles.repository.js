@@ -7,7 +7,7 @@ function createArticle(data) {
   });
 }
 
-// 특정 게시글 조회 
+// 특정 게시글 조회
 function findArticleById(id) {
   return prisma.article.findUnique({
     where: { id },
@@ -30,32 +30,28 @@ function deleteArticle(id) {
 }
 
 // 게시글 목록 조회
-async function findArticlesByFilter(
-  page = 1,
-  limit = 10,
-  search = '',
-) {
-  const skip = (page - 1) * limit;
-  const where = search
-    ? {
-        OR: [
-          { title: { contains: search, mode: 'insensitive' } },
-          { content: { contains: search, mode: 'insensitive' } },
-        ],
-      }
-    : {};
+async function findArticlesByFilter(page = 1, pageSize = 10, keyword = '') {
+  const skip = (page - 1) * pageSize;
+  const where = {
+    ...(keyword?.trim() && {
+      OR: [
+        { title: { contains: keyword, mode: 'insensitive' } },
+        { content: { contains: keyword, mode: 'insensitive' } },
+      ],
+    }),
+  };
   const [articles, totalCount] = await Promise.all([
     prisma.article.findMany({
       where,
       skip,
-      take: limit,
+      take: pageSize,
       orderBy: { createdAt: 'desc' },
       select: {
         id: true,
         title: true,
         content: true,
-        createdAt: true, 
-      }
+        createdAt: true,
+      },
     }),
     prisma.article.count({ where }),
   ]);

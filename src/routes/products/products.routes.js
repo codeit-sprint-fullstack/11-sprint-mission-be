@@ -12,7 +12,7 @@ import {
 
 export const productsRouter = express.Router();
 
-//POST /api/products - 상품 등록
+//POST /products - 상품 등록
 productsRouter.post(
   '/',
   validate('body', createProductSchema),
@@ -34,7 +34,7 @@ productsRouter.post(
   },
 );
 
-//GET /api/products/:id - 특정 상품 조회
+//GET /products/:id - 특정 상품 조회
 productsRouter.get(
   '/:id',
   validate('params', idParamSchema),
@@ -54,7 +54,7 @@ productsRouter.get(
   },
 );
 
-//PATCH/ api/products/:id - 게시글 수정
+//PATCH /products/:id - 상품 수정
 productsRouter.patch(
   '/:id',
   validate('params', idParamSchema),
@@ -62,7 +62,7 @@ productsRouter.patch(
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      const { name, description, price, tags  } = req.body;
+      const { name, description, price, tags } = req.body;
 
       const existingProduct = await productRepository.findProductById(id);
       if (!existingProduct) {
@@ -82,14 +82,14 @@ productsRouter.patch(
   },
 );
 
-// DELETE /api/articles/:id - 게시글 삭제
+// DELETE /products/:id - 상품 삭제
 productsRouter.delete(
   '/:id',
   validate('params', idParamSchema),
   async (req, res, next) => {
     try {
       const { id } = req.params;
-      const existingProduct = await productRepository.findArticleById(id);
+      const existingProduct = await productRepository.findProductById(id);
       if (!existingProduct) {
         throw new NotFoundException(ERROR_MESSAGE.PRODUCT_NOT_FOUND);
       }
@@ -102,17 +102,17 @@ productsRouter.delete(
   },
 );
 
-//GET /api/products - 게시글 목록 조회
+//GET /products - 상품 목록 조회
 productsRouter.get(
   '/',
   validate('query', ListQuerySchema),
   async (req, res, next) => {
     try {
-      const { page, limit, q: search } = req.query;
+      const { page, pageSize, keyword } = req.query;
       const products = await productRepository.findProductsByFilter(
-        page,
-        limit,
-        search,
+        Number(page),
+        Number(pageSize),
+        keyword,
       );
       res.status(HTTP_STATUS.OK).json(products);
     } catch (error) {

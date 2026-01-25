@@ -6,4 +6,4 @@ import { productCommentsRouter } from './comments/comments.routes.js';
 export const productRouter = express.Router();
 
 productRouter.use('/', productsRouter);
-productRouter.use('/:id/comments', productCommentsRouter)
+productRouter.use('/:productId/comments', productCommentsRouter)

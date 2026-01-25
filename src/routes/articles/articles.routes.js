@@ -10,10 +10,9 @@ import {
   updateArticleSchema,
 } from './articles.schema.js';
 
-
 export const articlesRouter = express.Router();
 
-//POST /api/articles - 게시글 등록
+//POST /articles - 게시글 등록
 articlesRouter.post(
   '/',
   validate('body', createArticleSchema),
@@ -33,7 +32,7 @@ articlesRouter.post(
   },
 );
 
-//GET /api/articles/:id - 게시글 조회
+//GET /articles/:id - 게시글 조회
 articlesRouter.get(
   '/:id',
   validate('params', idParamSchema),
@@ -53,7 +52,7 @@ articlesRouter.get(
   },
 );
 
-//PATCH/ api/articles/:id - 게시글 수정
+//PATCH/ /articles/:id - 게시글 수정
 articlesRouter.patch(
   '/:id',
   validate('params', idParamSchema),
@@ -101,15 +100,19 @@ articlesRouter.delete(
 
 //GET /api/articles - 게시글 목록 조회
 articlesRouter.get(
-  '/', 
+  '/',
   validate('query', ListQuerySchema),
   async (req, res, next) => {
-  try {
-    const { page, limit, q: search } = req.query;
-    const articles = await articleRepository.findArticlesByFilter(
-    page, limit, search);
-    res.status(HTTP_STATUS.OK).json(articles);
-  } catch (error) {
-    next(error);
-  }
-});
+    try {
+      const { page, pageSize, keyword } = req.query;
+      const articles = await articleRepository.findArticlesByFilter(
+        Number(page),
+        Number(pageSize),
+        keyword,
+      );
+      res.status(HTTP_STATUS.OK).json(articles);
+    } catch (error) {
+      next(error);
+    }
+  },
+);

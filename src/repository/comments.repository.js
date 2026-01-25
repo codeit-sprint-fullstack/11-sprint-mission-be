@@ -1,22 +1,28 @@
 import { prisma } from '#db/prisma.js';
 
 //중코마켓 댓글 등록
-function createProductComment(data) {
+function createProductComment(productId, data) {
   return prisma.comment.create({
-    data,
+    data: {
+      ...data,
+      productId,   
+    },
   });
 }
 
 //자유게시판 댓글 등록
-function createArticleComment(data) {
+function createArticleComment(articleId, data) {
   return prisma.comment.create({
-    data,
+    data: {
+      ...data,
+      articleId,   
+    },
   });
 }
 
 // 특정 댓글 조회 
 function findCommentById(id) {
-  return prisma.article.findUnique({
+  return prisma.comment.findUnique({
     where: { id },
   });
 }
@@ -37,11 +43,11 @@ function deleteComment(id) {
   });
 }
 
-// 중고마켓 댓글 목록 조회 (수정할것))
-function findProductComments(MarketId, limit, cursor) {
-  const comments = prisma.comment.findMany({
+// 중고마켓 댓글 목록 조회 
+async function findProductComments(productId, limit = 10, cursor) {
+  const comments = await prisma.comment.findMany({
     where: {
-      MarketId,
+      productId,
       ...(cursor && { id: { lt: cursor } }),
     },
     select: {
@@ -54,19 +60,19 @@ function findProductComments(MarketId, limit, cursor) {
   });
 
   const hasNext = comments.length > limit;
-  const items = hasNext ? comments.slice(0, limit) : comments;
-  const nextCursor = hasNext ? items[items.length - 1].id : null;
+  const list = hasNext ? comments.slice(0, limit) : comments;
+  const nextCursor = hasNext ? list[list.length - 1].id : null;
 
   return {
-    items,
+    list,
     nextCursor,
   };
 }
 
 
 // 자유게시판 댓글 목록 조회
-function findArticleComments(articleId, limit, cursor) {
-  const comments = prisma.comment.findMany({
+async function findArticleComments(articleId, limit = 10, cursor) {
+  const comments = await prisma.comment.findMany({
     where: {
       articleId,
       ...(cursor && { id: { lt: cursor } }),
@@ -81,11 +87,11 @@ function findArticleComments(articleId, limit, cursor) {
   });
 
   const hasNext = comments.length > limit;
-  const items = hasNext ? comments.slice(0, limit) : comments;
-  const nextCursor = hasNext ? items[items.length - 1].id : null;
+  const list = hasNext ? comments.slice(0, limit) : comments;
+  const nextCursor = hasNext ? list[list.length - 1].id : null;
 
   return {
-    items,
+    list,
     nextCursor,
   };
 }

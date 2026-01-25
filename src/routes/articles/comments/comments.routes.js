@@ -3,26 +3,29 @@ import { articleRepository } from '#repository';
 import { HTTP_STATUS, ERROR_MESSAGE } from '#constants';
 import { commentRepository } from '#repository';
 import { validate } from '#middlewares';
-import { idParamSchema } from '../articles.schema.js';
 import { NotFoundException } from '#exceptions';
-import { cursorQuerySchema, createArticleCommentSchema } from './comments.schema.js';
+import { 
+  cursorQuerySchema, 
+  createArticleCommentSchema, 
+  articleIdParamSchema 
+} from './comments.schema.js';
 
 export const articleCommentsRouter = express.Router({
   mergeParams: true,
 });
 
-//POST /api/articles - 특정 게시글 댓글 등록
+//POST products/:articleId/comments - 특정 게시글 댓글 등록
 articleCommentsRouter.post(
   '/',
   validate('body', createArticleCommentSchema),
   async (req, res, next) => {
     try {
       const { content } = req.body;
-
-      const newComment = await commentRepository.createArticleComment({
-        content,
-      });
-
+      const { articleId } = req.params;
+      const newComment = await commentRepository.createArticleComment(
+        articleId,
+        { content },
+    );
       res.status(HTTP_STATUS.CREATED).json(newComment);
     } catch (error) {
       next(error);
@@ -31,24 +34,24 @@ articleCommentsRouter.post(
 );
 
 
-//GET /api/articles/:id/comments - 특정 게시글 댓글목록 조회
+//GET articles/:articleId/comments - 특정 게시글 댓글목록 조회
 articleCommentsRouter.get(
   '/',
-  validate('params', idParamSchema),
+  validate('params', articleIdParamSchema),
   validate('query', cursorQuerySchema),
   async (req, res, next) => {
     try {
-      const { id } = req.params;
+      const { articleId } = req.params;
       const { limit, cursor } = req.query;
 
-      const article = await articleRepository.findArticleById(id);
+      const article = await articleRepository.findArticleById(articleId );
       if (!article) {
         throw new NotFoundException(ERROR_MESSAGE.ARTICLE_NOT_FOUND);
       }
     
       const result = await commentRepository.findArticleComments(
-        id,
-        limit,
+        articleId, 
+        Number(limit),
         cursor,
       );
       

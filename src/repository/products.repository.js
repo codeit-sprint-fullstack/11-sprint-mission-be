@@ -7,7 +7,7 @@ function createProduct(data) {
   });
 }
 
-// 특정 상품 조회 
+// 특정 상품 조회
 function findProductById(id) {
   return prisma.product.findUnique({
     where: { id },
@@ -29,33 +29,33 @@ function deleteProduct(id) {
   });
 }
 
-// 게시글 목록 조회
+// 상품 목록 조회
 async function findProductsByFilter(
-  page = 1,
-  limit = 10,
-  search = '',
+  page = 1, 
+  pageSize = 10, 
+  keyword = ''
 ) {
-  const skip = (page - 1) * limit;
-  const where = search
-    ? {
-        OR: [
-          { name: { contains: search, mode: 'insensitive' } },
-          { description: { contains: search, mode: 'insensitive' } },
-        ],
-      }
-    : {};
+  const skip = (page - 1) * pageSize;
+  const where = {
+    ...(keyword?.trim() && {
+      OR: [
+        { name: { contains: keyword, mode: 'insensitive' } },
+        { description: { contains: keyword, mode: 'insensitive' } },
+      ],
+    }),
+  };
   const [products, totalCount] = await Promise.all([
     prisma.product.findMany({
       where,
       skip,
-      take: limit,
+      take: pageSize,
       orderBy: { createdAt: 'desc' },
       select: {
         id: true,
         name: true,
         price: true,
-        createdAt: true, 
-      }
+        createdAt: true,
+      },
     }),
     prisma.product.count({ where }),
   ]);

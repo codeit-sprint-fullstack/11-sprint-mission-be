@@ -5,4 +5,4 @@ import { articleCommentsRouter } from './comments/comments.routes.js';
 export const articleRouter = express.Router();
 
 articleRouter.use('/', articlesRouter);
-articleRouter.use('/:id/comments', articleCommentsRouter)
+articleRouter.use('/:articleId/comments', articleCommentsRouter)
