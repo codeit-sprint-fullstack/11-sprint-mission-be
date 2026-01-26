@@ -1,0 +1,28 @@
+import express from "express";
+import { prisma } from "#db/prisma.js";
+import { config } from "#config";
+import { router } from './routes/index.js';
+import { cors } from "./middlewares/cors.middleware.js";
+import { setupGracefulShutdown } from "./utils/graceful-shutdown.util.js";
+import { errorHandler } from "#middlewares";
+
+const app = express();
+
+app.use(express.json());
+
+app.use(express.urlencoded({ extended: true })); 
+
+app.use(cors);
+
+app.use('/', router);
+
+app.use(errorHandler);
+
+const server = app.listen(config.PORT, () => {
+  console.log(
+    `[${config.NODE_ENV}] Server running at http://localhost:${config.PORT}`,
+  );
+});
+
+// Setup graceful shutdown handlers
+setupGracefulShutdown(server, prisma);
