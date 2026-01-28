@@ -1,9 +1,10 @@
 import express from 'express';
+import { prisma } from '#db/prisma.js';
 import { config } from '#config';
-import { router } from './routes/index.js';
+import { router as apiRouter } from './routes/index.js';
 import cors from 'cors';
 import { errorHandler } from '#middlewares';
-import { connectDB, disconnectDB } from '#db/index.js';
+import { setupGracefulShutdown } from './utils/graceful-shutdown.util.js';
 
 const app = express();
 
@@ -13,32 +14,17 @@ app.use(express.json());
 // cors
 app.use(cors());
 
-// 모든 라우트 등록
-app.use('/', router);
+// API 라우터 등록
+app.use('/api', apiRouter);
 
 // 에러 핸들링
 app.use(errorHandler);
 
-const startServer = async () => {
-  await connectDB();
-  console.log('✅ DB Connect Success!');
+const server = app.listen(config.PORT, () => {
+  console.log(
+    `[${config.NODE_ENV}] ✅ Server running at http://localhost:${config.PORT}`,
+  );
+});
 
-  // 서버 시작
-  const server = app.listen(config.PORT, () => {
-    console.log(`🚀 Server running on http://localhost:${config.PORT}`);
-  });
-
-  // Graceful Shutdown
-  const shutdown = (signal) => {
-    console.log(`\n${signal} received. Shutting down gracefully...`);
-    server.close(async () => {
-      console.log('HTTP server closed.');
-      await disconnectDB();
-    });
-  };
-
-  process.on('SIGINT', () => shutdown('SIGINT'));
-  process.on('SIGTERM', () => shutdown('SIGTERM'));
-};
-
-startServer();
+// Setup graceful shutdown handlers
+setupGracefulShutdown(server, prisma);
