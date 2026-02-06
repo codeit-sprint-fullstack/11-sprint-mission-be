@@ -1,0 +1,34 @@
+{
+  "name": "codeit-fullstack-first-express",
+  "version": "1.0.0",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js",
+    "format:check": "prettier --check src/**/*.js",
+    "lint": "eslint src/**/*.js",
+    "test": "jest"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": {
+    "name": "winverse",
+    "email": "public.winverse@gamil.com"
+  },
+  "engines": {
+    "node": "^24.11.0",
+    "npm": "^11.6.2"
+  },
+  "license": "MIT",
+  "description": "learn express",
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.35.0",
+    "eslint": "^9.35.0",
+    "prettier": "^3.6.2"
+  }
+}
