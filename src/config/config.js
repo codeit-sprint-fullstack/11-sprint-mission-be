@@ -19,8 +19,8 @@ const parseEnvironment = () => {
     });
   } catch (error) {
     if (error instanceof z.ZodError) {
-      const { fieldErrors } = flateenError(error);
-      console.error('환경 변수 검증 실패:', filedErrors);
+      const { fieldErrors } = error.flatten();
+      console.error('환경 변수 검증 실패:', fieldErrors);
     }
     process.exit(1);
   }

@@ -14,8 +14,12 @@ function findCommentById(id) {
 function findAllComments({ articleId, productId, cursor, take }) {
   // 중고마켓, 자유게시판 댓글 따로 만들기
   const where = {};
-  if (articleId) where.articleId = articleId;
-  if (productId) where.productId = productId;
+  if (articleId) {
+    where.articleId = articleId;
+  }
+  if (productId) {
+    where.productId = productId;
+  }
 
   return prisma.comment.findMany({
     where,

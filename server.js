@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import { prisma } from '#db/prisma.js';
 import { config } from './src/config/config.js';
 import { router as apiRouter } from '#routes/index.js';
 import { errorHandler } from './src/middleware/errorHandler.middleware.js';
@@ -23,7 +24,7 @@ const shutdown = async (signal) => {
   console.log(`\n${signal} 신호를 받았습니다. 서버를 종료합니다.`);
   server.close(async () => {
     console.log('HTTP 서버가 닫혔습니다.');
-    await disconnectDB();
+    await prisma.$disconnect();
     process.exit(0);
   });
 };

@@ -27,6 +27,8 @@ model Article {
   id        String   @id @default(uuid())
   title     String
   content   String
+  images    String? // 추가
+  likeCount Int      @default(0) // 좋아요순 정렬용 추가
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 

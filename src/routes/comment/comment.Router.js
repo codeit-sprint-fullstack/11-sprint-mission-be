@@ -11,7 +11,9 @@ commentsRouter.post('/articles/:articleId', async (req, res, next) => {
   try {
     const { content } = req.body;
     const { articleId } = req.params;
-    if (!content) throw new BadRequestException(ERROR_MESSAGE.INVALID_INPUT);
+    if (!content) {
+      throw new BadRequestException(ERROR_MESSAGE.INVALID_INPUT);
+    }
 
     const comment = await commentRepository.createComment({
       content,
@@ -28,7 +30,9 @@ commentsRouter.post('/products/:productId', async (req, res, next) => {
   try {
     const { content } = req.body;
     const { productId } = req.params;
-    if (!content) throw new BadRequestException(ERROR_MESSAGE.INVALID_INPUT);
+    if (!content) {
+      throw new BadRequestException(ERROR_MESSAGE.INVALID_INPUT);
+    }
 
     const comment = await commentRepository.createComment({
       content,
@@ -74,7 +78,9 @@ commentsRouter.get('/products/:productId', async (req, res, next) => {
 commentsRouter.patch('/:id', async (req, res, next) => {
   try {
     const exists = await commentRepository.findCommentById(req.params.id);
-    if (!exists) throw new NotFoundException(ERROR_MESSAGE.RESOURCE_NOT_FOUND);
+    if (!exists) {
+      throw new NotFoundException(ERROR_MESSAGE.RESOURCE_NOT_FOUND);
+    }
 
     const comment = await commentRepository.updateComment(
       req.params.id,
@@ -90,7 +96,9 @@ commentsRouter.patch('/:id', async (req, res, next) => {
 commentsRouter.delete('/:id', async (req, res, next) => {
   try {
     const exists = await commentRepository.findCommentById(req.params.id);
-    if (!exists) throw new NotFoundException(ERROR_MESSAGE.RESOURCE_NOT_FOUND);
+    if (!exists) {
+      throw new NotFoundException(ERROR_MESSAGE.RESOURCE_NOT_FOUND);
+    }
 
     await commentRepository.deleteComment(req.params.id);
     res.status(HTTP_STATUS.NO_CONTENT).send();

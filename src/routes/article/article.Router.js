@@ -34,8 +34,9 @@ articlesRouter.get('/', async (req, res, next) => {
       orderBy = 'recent',
       keyword = '',
     } = req.query;
-    if (Number(page) < 1)
+    if (Number(page) < 1) {
       throw new BadRequestException(ERROR_MESSAGE.INVALID_INPUT);
+    }
 
     const articles = await articleRepository.findAllArticles({
       skip: (Number(page) - 1) * Number(limit),
@@ -53,7 +54,9 @@ articlesRouter.get('/', async (req, res, next) => {
 articlesRouter.get('/:id', async (req, res, next) => {
   try {
     const article = await articleRepository.findArticleById(req.params.id);
-    if (!article) throw new NotFoundException(ERROR_MESSAGE.RESOURCE_NOT_FOUND);
+    if (!article) {
+      throw new NotFoundException(ERROR_MESSAGE.RESOURCE_NOT_FOUND);
+    }
     res.status(HTTP_STATUS.OK).json(article);
   } catch (error) {
     next(error);
@@ -64,7 +67,9 @@ articlesRouter.get('/:id', async (req, res, next) => {
 articlesRouter.patch('/:id', async (req, res, next) => {
   try {
     const exists = await articleRepository.findArticleById(req.params.id);
-    if (!exists) throw new NotFoundException(ERROR_MESSAGE.RESOURCE_NOT_FOUND);
+    if (!exists) {
+      throw new NotFoundException(ERROR_MESSAGE.RESOURCE_NOT_FOUND);
+    }
 
     const article = await articleRepository.updateArticle(
       req.params.id,
@@ -80,7 +85,9 @@ articlesRouter.patch('/:id', async (req, res, next) => {
 articlesRouter.delete('/:id', async (req, res, next) => {
   try {
     const exists = await articleRepository.findArticleById(req.params.id);
-    if (!exists) throw new NotFoundException(ERROR_MESSAGE.RESOURCE_NOT_FOUND);
+    if (!exists) {
+      throw new NotFoundException(ERROR_MESSAGE.RESOURCE_NOT_FOUND);
+    }
 
     await articleRepository.deleteArticle(req.params.id);
     res.status(HTTP_STATUS.NO_CONTENT).send();

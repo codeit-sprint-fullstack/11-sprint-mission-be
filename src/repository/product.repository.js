@@ -28,10 +28,10 @@ function findAllProducts({ skip, take, orderBy, keyword }) {
   return prisma.product.findMany({
     where,
     orderBy: {
-      createdAt: orderBy === 'recent' ? 'dest' : 'asc',
+      createdAt: orderBy === 'recent' ? 'desc' : 'asc',
     },
     skip: Number(skip) || 0,
-    take: Number(take) || 0,
+    take: Number(take) || 10,
   });
 }
 
