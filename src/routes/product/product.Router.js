@@ -1,5 +1,5 @@
 import express from 'express';
-import { productRepository } from '../../repository/productRepository.js';
+import * as productRepository from '../../repository/product.Repository.js';
 import { HTTP_STATUS } from '../../constants/http-status.js';
 import { BadRequestException } from '../../exceptions/BadRequsetException.js';
 import { NotFoundException } from '../../exceptions/NotFoundException.js';

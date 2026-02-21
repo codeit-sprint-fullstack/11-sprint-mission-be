@@ -3,7 +3,7 @@ import express from 'express';
 import { HTTP_STATUS, ERROR_MESSAGE } from '../../constants/index.js';
 import { BadRequestException } from '../../exceptions/BadRequsetException.js';
 import { NotFoundException } from '../../exceptions/NotFoundException.js';
-import { articleRepository } from '../../repository/articleRepository.js';
+import * as articleRepository from '../../repository/article.Repository.js';
 
 export const articlesRouter = express.Router();
 

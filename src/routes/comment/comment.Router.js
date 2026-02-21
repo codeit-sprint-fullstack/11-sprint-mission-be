@@ -1,5 +1,5 @@
 import express from 'express';
-import { commentRepository } from '../../repository/commentRepository.js';
+import * as commentRepository from '../../repository/comment.Repository.js';
 import { HTTP_STATUS, ERROR_MESSAGE } from '../../constants/index.js';
 import { BadRequestException } from '../../exceptions/BadRequsetException.js';
 import { NotFoundException } from '../../exceptions/NotFoundException.js';
