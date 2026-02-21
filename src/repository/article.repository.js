@@ -1,17 +1,17 @@
 import { prisma } from '#db/prisma.js';
 
 // 게시글 등록
-function createArticle(data) {
+export function createArticle(data) {
   return prisma.article.create({ data });
 }
 
 // 게시글 조회
-function findArticleById(id) {
+export function findArticleById(id) {
   return prisma.article.findUnique({ where: { id } });
 }
 
 // 게시글 목록 조회
-function findAllArticles({ skip, take, orderBy, keyword }) {
+export function findAllArticles({ skip, take, orderBy, keyword }) {
   const where = keyword
     ? {
         OR: [
@@ -32,7 +32,7 @@ function findAllArticles({ skip, take, orderBy, keyword }) {
 }
 
 // 게시글 수정
-function updateArticle(id, data) {
+export function updateArticle(id, data) {
   return prisma.article.update({
     where: { id },
     data,
@@ -40,14 +40,8 @@ function updateArticle(id, data) {
 }
 
 // 게시글 삭제
-function deleteArticle(id) {
+export function deleteArticle(id) {
   return prisma.article.delete({ where: { id } });
 }
 
-export const articleRepository = {
-  createArticle,
-  findArticleById,
-  findAllArticles,
-  updateArticle,
-  deleteArticle,
-};
+

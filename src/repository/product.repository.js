@@ -1,21 +1,21 @@
 import { prisma } from '#db/prisma.js';
 
 // 상품 등록
-function createProduct(data) {
+export function createProduct(data) {
   return prisma.product.create({
     data,
   });
 }
 
 // 특정 상품 상세 조회
-function findProductById(id) {
+export function findProductById(id) {
   return prisma.product.findUnique({
     where: { id: id },
   });
 }
 
 // 상품 목록 조회 (페이지네이션, 정렬, 검색 포함)
-function findAllProducts({ skip, take, orderBy, keyword }) {
+export function findAllProducts({ skip, take, orderBy, keyword }) {
   const where = keyword
     ? {
         OR: [
@@ -36,7 +36,7 @@ function findAllProducts({ skip, take, orderBy, keyword }) {
 }
 
 // 상품 정보 수정
-function updateProduct(id, data) {
+export function updateProduct(id, data) {
   return prisma.product.update({
     where: { id: id },
     data,
@@ -44,16 +44,8 @@ function updateProduct(id, data) {
 }
 
 // 상품 삭제
-function deleteProduct(id) {
+export function deleteProduct(id) {
   return prisma.product.delete({
     where: { id: id },
   });
 }
-
-export const productRepository = {
-  createProduct,
-  findProductById,
-  findAllProducts,
-  updateProduct,
-  deleteProduct,
-};

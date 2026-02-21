@@ -1,17 +1,17 @@
 import { prisma } from '#db/prisma.js';
 
 // 댓글 등록
-function createComment(data) {
+export function createComment(data) {
   return prisma.comment.create({ data });
 }
 
 // 댓글 있는지 확인
-function findCommentById(id) {
+export function findCommentById(id) {
   return prisma.comment.findUnique({ where: { id } });
 }
 
 // 댓글 목록 조회
-function findAllComments({ articleId, productId, cursor, take }) {
+export function findAllComments({ articleId, productId, cursor, take }) {
   // 중고마켓, 자유게시판 댓글 따로 만들기
   const where = {};
   if (articleId) {
@@ -31,7 +31,7 @@ function findAllComments({ articleId, productId, cursor, take }) {
 }
 
 // 댓글 수정
-function updateComment(id, data) {
+export function updateComment(id, data) {
   return prisma.comment.update({
     where: { id },
     data,
@@ -39,14 +39,6 @@ function updateComment(id, data) {
 }
 
 // 댓글 삭제
-function deleteComment(id) {
+export function deleteComment(id) {
   return prisma.comment.delete({ where: { id } });
 }
-
-export const commentRepository = {
-  createComment,
-  findCommentById,
-  findAllComments,
-  updateComment,
-  deleteComment,
-};
